@@ -4,12 +4,11 @@ import { useStyles } from "./styles"
 import { graphql, useStaticQuery } from "gatsby"
 import NavDesktop from "./nav-desktop"
 
-function Layout() {
+function Layout(props) {
   const classes = useStyles()
-
   const { imgLogo } = useStaticQuery(graphql`
     query getLogo {
-      imgLogo: file(name: { eq: "logo-pemalang-notebook" }) {
+      imgLogo: file(name: { eq: "logo-pemalang-notebook-with-label" }) {
         name
         childImageSharp {
           fixed(width: 200, quality: 100) {
@@ -27,6 +26,7 @@ function Layout() {
           <NavDesktop imgLogo={imgLogo} />
         </nav>
       </header>
+      {props.children}
     </React.Fragment>
   )
 }

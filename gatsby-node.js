@@ -12,15 +12,22 @@ exports.sourceNodes = async ({
   createContentDigest,
 }) => {
   const { createNode } = actions
-
   try {
     const fetchFormItems = () =>
       axios.get(
         `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Product&majorDimension=ROWS&key=${key}`
       )
 
-    const response = await fetchFormItems()
-    const headOfTables = response.data.valueRanges[0].values
+    const fetchStaticItems = () =>
+      axios.get(
+        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Static!A1:C2&majorDimension=ROWS&key=${key}`
+      )
+
+    const [responseData, responseDataStatic] = await Promise.all([
+      fetchFormItems(),
+      fetchStaticItems(),
+    ])
+    const headOfTables = responseData.data.valueRanges[0].values
     let rows = []
     for (var i = 1; i < headOfTables.length; i++) {
       var rowData = {}
@@ -68,7 +75,7 @@ exports.sourceNodes = async ({
     })
     rows.forEach((item, i) => {
       const itemNode = {
-        id: createNodeId(`${i}`),
+        id: createNodeId(`product_${i}`),
         parent: `__SOURCE__`,
         internal: {
           type: `product`,
@@ -94,15 +101,29 @@ exports.sourceNodes = async ({
       ...object,
     })
 
-    fs.writeFile(
-      "./group-laptop.json",
-      JSON.stringify(groupLaptop),
-      "utf8",
-      () => ""
-    )
-    fs.writeFile("./my-data.json", JSON.stringify(rows), "utf8", () => "")
+    responseDataStatic.data.valueRanges[0].values.forEach((i, idx) => {
+      const data = { name: i[0], url: i[1], label: i[2] }
+      createNode({
+        id: createNodeId(`dataStatic_${idx}`),
+        parent: `__SOURCE__`,
+        internal: {
+          type: `dataStatic`,
+          contentDigest: createContentDigest(data),
+        },
+        children: [],
+        ...data,
+      })
+    })
+
+    // fs.writeFile(
+    //   "./group-laptop.json",
+    //   JSON.stringify(groupLaptop),
+    //   "utf8",
+    //   () => ""
+    // )
+    // fs.writeFile("./my-data.json", JSON.stringify(rows), "utf8", () => "")
   } catch (error) {
-    // console.log("error================================", error)
+    console.log("error================================", error)
     // var json = JSON.stringify(error)
     // fs.writeFile("./myError.json", json, "utf8", () => "")
   }

@@ -14,14 +14,20 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
-      resolve: `gatsby-plugin-material-ui`,
+      resolve: "gatsby-plugin-remote-images",
       options: {
-        pathToStylesProvider: `src/styles-provider-props`,
-        theme: {
-          typography: {
-            fontFamily: "",
-          },
-        },
+        nodeType: "product",
+        imagePath: "images",
+        type: "array",
+        name: "optimized_product",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-remote-images",
+      options: {
+        nodeType: "dataStatic",
+        imagePath: "url",
+        name: "optimized_data_static",
       },
     },
     {
@@ -31,32 +37,11 @@ module.exports = {
         name: "images",
       },
     },
-    // {
-    //   resolve: `gatsby-plugin-material-ui`,
-    //   options: {
-    //     theme: {
-    //       palette: {
-    //         orange: {
-    //           light: "#ffb443",
-    //           main: "#f08400",
-    //           dark: "#b75600",
-    //         },
-    //         blue: {
-    //           light: "#5dbdff",
-    //           main: "#008dce",
-    //           dark: "#00609d",
-    //         },
-    //         white: {
-    //           light: "#ffffff",
-    //           main: "#cccccc",
-    //           dark: "#9b9b9b",
-    //         },
-    //         primary: {
-    //           main: "#BA3D3B", // or whatever colors you need
-    //         },
-    //       },
-    //     },
-    //   },
-    // },
+    {
+      resolve: `gatsby-plugin-material-ui`,
+      options: {
+        pathToStylesProvider: `src/styles-provider-props`,
+      },
+    },
   ],
 }

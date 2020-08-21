@@ -19,6 +19,7 @@ function NavDesktop(props) {
       <Link to="/">
         <Img
           fadeIn={false}
+          imgStyle={{ marginTop: 1 }}
           fixed={imgLogo.childImageSharp.fixed}
           loading="eager"
           alt={imgLogo.name}
@@ -27,10 +28,10 @@ function NavDesktop(props) {
       </Link>
       <div className={classes["right-menu"]}>
         <div className={classes["btn-menu-right"]}>
-          <Typography component="span">Laptop</Typography>
+          <Typography component="span">Percetakan</Typography>
         </div>
         <div className={classes["btn-menu-right"]}>
-          <Typography component="span">Accesories</Typography>
+          <Typography component="span">Kontak</Typography>
         </div>
       </div>
     </div>
@@ -44,7 +45,7 @@ const useStyles = makeStyles(theme => ({
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    height: 75,
+    height: 70,
   },
   wrapper: {
     display: "flex",
@@ -71,7 +72,7 @@ const useStyles = makeStyles(theme => ({
       bottom: -1,
       left: 0,
       position: "absolute",
-      height: 1.5,
+      height: 2.5,
       transform: "scaleX(0)",
       transition: "transform 0.15s ease-in 0s",
       width: "100%",
@@ -86,9 +87,9 @@ const useStyles = makeStyles(theme => ({
         margin: "auto",
         textTransform: "uppercase",
         fontSize: "0.8rem",
+        fontWeight: 500,
         letterSpacing: 1.5,
         color: "#000000",
-        wordWrap: "none",
       },
     },
   },
@@ -98,6 +99,11 @@ const useStyles = makeStyles(theme => ({
       "&::after": {
         backgroundColor: "#F08619",
       },
+      "@global": {
+        span: {
+          color: "#F08619",
+        },
+      },
     },
   },
   "btn-menu-right": {
@@ -105,6 +111,11 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       "&::after": {
         backgroundColor: "#008FD5",
+      },
+      "@global": {
+        span: {
+          color: "#008FD5",
+        },
       },
     },
   },

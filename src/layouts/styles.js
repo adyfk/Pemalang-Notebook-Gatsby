@@ -11,7 +11,7 @@ export const useStyles = makeStyles(theme => ({
       paddingRight: 30,
     },
     boxShadow: "0px 1px 100px 0px rgba(0,0,0,0.1)",
-    position: "fixed",
+    position: "sticky",
     width: "100%",
   },
 }))
