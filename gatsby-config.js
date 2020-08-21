@@ -11,47 +11,52 @@ module.exports = {
     author: `Pemalang Notebook`,
   },
   plugins: [
-    // {
-    //   // keep as first gatsby-source-filesystem plugin for gatsby image support
-    //   resolve: "gatsby-source-filesystem",
-    //   options: {
-    //     path: `${__dirname}/static/img`,
-    //     name: "uploads",
-    //   },
-    // },
-    // {
-    //   resolve: "gatsby-source-filesystem",
-    //   options: {
-    //     path: `${__dirname}/src/pages`,
-    //     name: "pages",
-    //   },
-    // },
+    `gatsby-transformer-sharp`,
+    `gatsby-plugin-sharp`,
     {
       resolve: `gatsby-plugin-material-ui`,
       options: {
+        pathToStylesProvider: `src/styles-provider-props`,
         theme: {
-          palette: {
-            orange: {
-              light: "#ffb443",
-              main: "#f08400",
-              dark: "#b75600",
-            },
-            blue: {
-              light: "#5dbdff",
-              main: "#008dce",
-              dark: "#00609d",
-            },
-            white: {
-              light: "#ffffff",
-              main: "#cccccc",
-              dark: "#9b9b9b",
-            },
-            primary: {
-              main: "#BA3D3B", // or whatever colors you need
-            },
+          typography: {
+            fontFamily: "",
           },
         },
       },
     },
+    {
+      resolve: "gatsby-source-filesystem",
+      options: {
+        path: `${__dirname}/static/img`,
+        name: "images",
+      },
+    },
+    // {
+    //   resolve: `gatsby-plugin-material-ui`,
+    //   options: {
+    //     theme: {
+    //       palette: {
+    //         orange: {
+    //           light: "#ffb443",
+    //           main: "#f08400",
+    //           dark: "#b75600",
+    //         },
+    //         blue: {
+    //           light: "#5dbdff",
+    //           main: "#008dce",
+    //           dark: "#00609d",
+    //         },
+    //         white: {
+    //           light: "#ffffff",
+    //           main: "#cccccc",
+    //           dark: "#9b9b9b",
+    //         },
+    //         primary: {
+    //           main: "#BA3D3B", // or whatever colors you need
+    //         },
+    //       },
+    //     },
+    //   },
+    // },
   ],
 }
