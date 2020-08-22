@@ -28,6 +28,7 @@
     "gatsby-plugin-sharp": "^2.6.27",
     "gatsby-source-filesystem": "^2.3.24",
     "gatsby-transformer-sharp": "^2.5.13",
+    "google-map-react": "^2.0.8",
     "jss-plugin-compose": "^10.4.0",
     "jss-plugin-expand": "^10.4.0",
     "jss-plugin-extend": "^10.4.0",

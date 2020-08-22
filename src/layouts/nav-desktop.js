@@ -7,44 +7,46 @@ function NavDesktop(props) {
   const classes = useStyles({ status: props.status })
   const { imgLogo } = props
   return (
-    <nav className={classes.nav}>
-      <div aria-label="Desktop Navigation" className={classes["container"]}>
-        <div className={classes["left-menu"]}>
-          <div className={classes["btn-menu"]}>
-            <Typography className={classes["label"]} component="span">
-              Laptop
-            </Typography>
+    <header>
+      <nav className={classes.nav}>
+        <div aria-label="Desktop Navigation" className={classes["container"]}>
+          <div className={classes["left-menu"]}>
+            <div className={classes["btn-menu"]}>
+              <Typography className={classes["label"]} component="span">
+                Laptop
+              </Typography>
+            </div>
+            <div className={classes["btn-menu"]}>
+              <Typography className={classes["label"]} component="span">
+                Accesories
+              </Typography>
+            </div>
           </div>
-          <div className={classes["btn-menu"]}>
-            <Typography className={classes["label"]} component="span">
-              Accesories
-            </Typography>
+          <Link to="/">
+            <Img
+              fadeIn={false}
+              imgStyle={{ marginTop: 1 }}
+              fixed={imgLogo.childImageSharp.fixed}
+              loading="eager"
+              alt={imgLogo.name}
+              title={imgLogo.name}
+            />
+          </Link>
+          <div className={classes["right-menu"]}>
+            <div className={classes["btn-menu"]}>
+              <Typography className={classes["label"]} component="span">
+                Percetakan
+              </Typography>
+            </div>
+            <div className={classes["btn-menu"]}>
+              <Typography className={classes["label"]} component="span">
+                Kontak
+              </Typography>
+            </div>
           </div>
         </div>
-        <Link to="/">
-          <Img
-            fadeIn={false}
-            imgStyle={{ marginTop: 1 }}
-            fixed={imgLogo.childImageSharp.fixed}
-            loading="eager"
-            alt={imgLogo.name}
-            title={imgLogo.name}
-          />
-        </Link>
-        <div className={classes["right-menu"]}>
-          <div className={classes["btn-menu"]}>
-            <Typography className={classes["label"]} component="span">
-              Percetakan
-            </Typography>
-          </div>
-          <div className={classes["btn-menu"]}>
-            <Typography className={classes["label"]} component="span">
-              Kontak
-            </Typography>
-          </div>
-        </div>
-      </div>
-    </nav>
+      </nav>
+    </header>
   )
 }
 
