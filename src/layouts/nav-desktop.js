@@ -4,48 +4,81 @@ import { Link } from "gatsby"
 import { makeStyles, Typography } from "@material-ui/core"
 
 function NavDesktop(props) {
-  const classes = useStyles()
+  const classes = useStyles({ status: props.status })
   const { imgLogo } = props
   return (
-    <div aria-label="Desktop Navigation" className={classes["container"]}>
-      <div className={classes["left-menu"]}>
-        <div className={classes["btn-menu-left"]}>
-          <Typography component="span">Laptop</Typography>
+    <nav className={classes.nav}>
+      <div aria-label="Desktop Navigation" className={classes["container"]}>
+        <div className={classes["left-menu"]}>
+          <div className={classes["btn-menu"]}>
+            <Typography className={classes["label"]} component="span">
+              Laptop
+            </Typography>
+          </div>
+          <div className={classes["btn-menu"]}>
+            <Typography className={classes["label"]} component="span">
+              Accesories
+            </Typography>
+          </div>
         </div>
-        <div className={classes["btn-menu-left"]}>
-          <Typography component="span">Accesories</Typography>
+        <Link to="/">
+          <Img
+            fadeIn={false}
+            imgStyle={{ marginTop: 1 }}
+            fixed={imgLogo.childImageSharp.fixed}
+            loading="eager"
+            alt={imgLogo.name}
+            title={imgLogo.name}
+          />
+        </Link>
+        <div className={classes["right-menu"]}>
+          <div className={classes["btn-menu"]}>
+            <Typography className={classes["label"]} component="span">
+              Percetakan
+            </Typography>
+          </div>
+          <div className={classes["btn-menu"]}>
+            <Typography className={classes["label"]} component="span">
+              Kontak
+            </Typography>
+          </div>
         </div>
       </div>
-      <Link to="/">
-        <Img
-          fadeIn={false}
-          imgStyle={{ marginTop: 1 }}
-          fixed={imgLogo.childImageSharp.fixed}
-          loading="eager"
-          alt={imgLogo.name}
-          title={imgLogo.name}
-        />
-      </Link>
-      <div className={classes["right-menu"]}>
-        <div className={classes["btn-menu-right"]}>
-          <Typography component="span">Percetakan</Typography>
-        </div>
-        <div className={classes["btn-menu-right"]}>
-          <Typography component="span">Kontak</Typography>
-        </div>
-      </div>
-    </div>
+    </nav>
   )
 }
 
 export default NavDesktop
 
 const useStyles = makeStyles(theme => ({
+  label: props => ({
+    color: props.status ? "grey" : "white",
+  }),
+  nav: {
+    [theme.breakpoints.down("lg")]: {
+      paddingLeft: 22,
+      paddingRight: 22,
+    },
+    [theme.breakpoints.up("lg")]: {
+      paddingLeft: 30,
+      paddingRight: 30,
+    },
+    boxShadow: props => {
+      console.log(props)
+      return props.status ? "0px 1px 100px 0px rgba(0,0,0,0.1)" : "none"
+    },
+    position: "fixed",
+    backgroundColor: props => (props.status ? "white" : "transparent"),
+    top: 0,
+    left: 0,
+    zIndex: 99999,
+    width: "100%",
+  },
   container: {
     display: "flex",
     justifyContent: "space-between",
     alignItems: "center",
-    height: 70,
+    height: 75,
   },
   wrapper: {
     display: "flex",
@@ -72,7 +105,7 @@ const useStyles = makeStyles(theme => ({
       bottom: -1,
       left: 0,
       position: "absolute",
-      height: 2.5,
+      height: 1,
       transform: "scaleX(0)",
       transition: "transform 0.15s ease-in 0s",
       width: "100%",
@@ -80,6 +113,7 @@ const useStyles = makeStyles(theme => ({
     "&:hover": {
       "&::after": {
         transform: "scaleX(1)",
+        backgroundColor: props => (props.status ? "grey" : "white"),
       },
     },
     "@global": {
@@ -89,33 +123,6 @@ const useStyles = makeStyles(theme => ({
         fontSize: "0.8rem",
         fontWeight: 500,
         letterSpacing: 1.5,
-        color: "#000000",
-      },
-    },
-  },
-  "btn-menu-left": {
-    composes: "$btn-menu",
-    "&:hover": {
-      "&::after": {
-        backgroundColor: "#F08619",
-      },
-      "@global": {
-        span: {
-          color: "#F08619",
-        },
-      },
-    },
-  },
-  "btn-menu-right": {
-    composes: "$btn-menu",
-    "&:hover": {
-      "&::after": {
-        backgroundColor: "#008FD5",
-      },
-      "@global": {
-        span: {
-          color: "#008FD5",
-        },
       },
     },
   },

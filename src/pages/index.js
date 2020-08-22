@@ -26,7 +26,10 @@ export default function Home() {
   return (
     <Layout>
       <section className={classes["jumbo-tron"]}>
-        <Img fluid={imgJumboTron.optimized_data_static.childImageSharp.fluid} />
+        <Img
+          className={classes["jumbo-tron-image"]}
+          fluid={imgJumboTron.optimized_data_static.childImageSharp.fluid}
+        />
         <div className={classes["jumbo-tron-container-label"]}>
           {labelJumboTron.label.split(",").map(text => {
             return (
@@ -45,6 +48,17 @@ export const useStyles = makeStyles(() => ({
   "jumbo-tron": {
     position: "relative",
   },
+  "jumbo-tron-image": {
+    "&::after": {
+      content: "''",
+      position: "absolute",
+      top: 0,
+      backgroundColor: "black",
+      opacity: 0.5,
+      width: "100%",
+      height: "100%",
+    },
+  },
   "jumbo-tron-container-label": {
     position: "absolute",
     top: "50%",
@@ -57,6 +71,6 @@ export const useStyles = makeStyles(() => ({
     letterSpacing: 1,
     color: "#FFFFFF",
     textAlign: "center",
-    textShadow: "black 0px 0px 10px",
+    textTransform: "uppercase",
   },
 }))
