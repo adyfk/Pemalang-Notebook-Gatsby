@@ -190,7 +190,7 @@ const useStyles = makeStyles(theme => ({
     top: 75,
     width: "100%",
     zIndex: 9999,
-    backgroundColor: "rgba(255,255,255,0.6)",
+    backgroundColor: "rgba(255,255,255,0.8)",
     padding: "10px 20px",
   },
   "d-hide": {
