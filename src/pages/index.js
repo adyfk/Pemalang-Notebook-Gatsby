@@ -13,7 +13,12 @@ export default function Home() {
         optimized_data_static {
           childImageSharp {
             fluid(quality: 50) {
-              ...GatsbyImageSharpFluid_tracedSVG
+              base64
+              tracedSVG
+              srcWebp
+              srcSetWebp
+              originalImg
+              originalName
             }
           }
         }

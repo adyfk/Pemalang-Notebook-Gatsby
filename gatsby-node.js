@@ -18,7 +18,7 @@ exports.sourceNodes = async ({
 
     const fetchStaticItems = () =>
       axios.get(
-        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Static!A1:C2&majorDimension=ROWS&key=${key}`
+        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Static!A:C&majorDimension=ROWS&key=${key}`
       )
 
     const [responseData, responseDataStatic] = await Promise.all([
