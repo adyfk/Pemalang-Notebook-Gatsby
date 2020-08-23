@@ -49,11 +49,13 @@ function NavDesktop(props) {
                 Percetakan
               </Typography>
             </div>
-            <div className={classes["btn-menu"]}>
-              <Typography className={classes["label"]} component="span">
-                Kontak
-              </Typography>
-            </div>
+            <Link to="/contact">
+              <div className={classes["btn-menu"]}>
+                <Typography className={classes["label"]} component="span">
+                  Kontak
+                </Typography>
+              </div>
+            </Link>
             <div className={classes["btn-icon"]}>
               <IconButton onClick={() => setShow("search")}>
                 <Search fill="#ffffff" />
@@ -74,6 +76,7 @@ function NavDesktop(props) {
           </Grid>
           <Grid item lg md xs sm>
             <InputBase
+              fullWidth
               value={search}
               onChange={e => setSearch(e.target.value)}
               placeholder="Cari ..."
@@ -93,8 +96,16 @@ function NavDesktop(props) {
 export default NavDesktop
 
 const useStyles = makeStyles(theme => ({
+  "@global": {
+    "a:-webkit-any-link": {
+      color: "-webkit-link",
+      cursor: "pointer",
+      textDecoration: "none",
+    },
+  },
   label: props => ({
     color: props.status ? "grey" : "white",
+    textDecoration: ["none", "!important"],
   }),
   nav: {
     [theme.breakpoints.down("lg")]: {
@@ -179,7 +190,7 @@ const useStyles = makeStyles(theme => ({
     top: 75,
     width: "100%",
     zIndex: 9999,
-    backgroundColor: "rgba(255,255,255,0.8)",
+    backgroundColor: "rgba(255,255,255,0.6)",
     padding: "10px 20px",
   },
   "d-hide": {

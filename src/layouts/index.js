@@ -32,15 +32,13 @@ function Layout(props) {
     }
   `)
 
-  const status = () => window.location.pathname === "/" && y > 200
+  const status = window.location.pathname === "/" ? y > 200 : true
   return (
     <React.Fragment>
-      <div>
-        <CssBaseline />
-        {!!matches && <NavDesktop status={status()} imgLogo={imgLogo} />}
-        {props.children}
-        <Footer imgLogoWithLabel={imgLogoWithLabel} />
-      </div>
+      <CssBaseline />
+      {!!matches && <NavDesktop status={status} imgLogo={imgLogo} />}
+      {props.children}
+      <Footer imgLogoWithLabel={imgLogoWithLabel} />
     </React.Fragment>
   )
 }

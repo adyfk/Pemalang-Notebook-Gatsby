@@ -1,11 +1,9 @@
-require("dotenv").config()
 const path = require(`path`)
 const axios = require("axios")
 const _ = require("lodash")
 const fs = require("fs")
 
 const { key, spreadsheetId } = process.env
-
 exports.sourceNodes = async ({
   actions,
   createNodeId,
@@ -123,7 +121,7 @@ exports.sourceNodes = async ({
     // )
     // fs.writeFile("./my-data.json", JSON.stringify(rows), "utf8", () => "")
   } catch (error) {
-    console.log("error================================", error)
+    // console.log("error================================", error)
     // var json = JSON.stringify(error)
     // fs.writeFile("./myError.json", json, "utf8", () => "")
   }

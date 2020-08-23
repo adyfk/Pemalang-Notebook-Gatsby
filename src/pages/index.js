@@ -23,6 +23,17 @@ export default function Home() {
       }
     }
   `)
+  const rLabelJumboTron = () => (
+    <div className={classes["jumbo-tron-container-label"]}>
+      {labelJumboTron.label.split(",").map(text => {
+        return (
+          <Typography key={text} className={classes["jumbo-tron-label"]}>
+            {text}
+          </Typography>
+        )
+      })}
+    </div>
+  )
   return (
     <Layout>
       <section className={classes["jumbo-tron"]}>
@@ -30,15 +41,7 @@ export default function Home() {
           className={classes["jumbo-tron-image"]}
           fluid={imgJumboTron.optimized_data_static.childImageSharp.fluid}
         />
-        <div className={classes["jumbo-tron-container-label"]}>
-          {labelJumboTron.label.split(",").map(text => {
-            return (
-              <Typography key={text} className={classes["jumbo-tron-label"]}>
-                {text}
-              </Typography>
-            )
-          })}
-        </div>
+        {rLabelJumboTron()}
       </section>
     </Layout>
   )
