@@ -1,9 +1,20 @@
-import React from "react"
+import React, { useState } from "react"
+import clsx from "clsx"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
-import { makeStyles, Typography } from "@material-ui/core"
+import {
+  makeStyles,
+  Typography,
+  IconButton,
+  Grid,
+  InputBase,
+} from "@material-ui/core"
+import Search from "@material-ui/icons/Search"
+import Clear from "@material-ui/icons/Clear"
 
 function NavDesktop(props) {
+  const [show, setShow] = useState("")
+  const [search, setSearch] = useState("")
   const classes = useStyles({ status: props.status })
   const { imgLogo } = props
   return (
@@ -43,9 +54,38 @@ function NavDesktop(props) {
                 Kontak
               </Typography>
             </div>
+            <div className={classes["btn-icon"]}>
+              <IconButton onClick={() => setShow("search")}>
+                <Search fill="#ffffff" />
+              </IconButton>
+            </div>
           </div>
         </div>
       </nav>
+      <div
+        className={clsx(
+          classes["search-box"],
+          show !== "search" && classes["d-hide"]
+        )}
+      >
+        <Grid spacing={2} container alignItems="center">
+          <Grid item>
+            <Search />
+          </Grid>
+          <Grid item lg md xs sm>
+            <InputBase
+              value={search}
+              onChange={e => setSearch(e.target.value)}
+              placeholder="Cari ..."
+            />
+          </Grid>
+          <Grid item>
+            <IconButton onClick={() => setShow("")}>
+              <Clear />
+            </IconButton>
+          </Grid>
+        </Grid>
+      </div>
     </header>
   )
 }
@@ -65,10 +105,8 @@ const useStyles = makeStyles(theme => ({
       paddingLeft: 30,
       paddingRight: 30,
     },
-    boxShadow: props => {
-      console.log(props)
-      return props.status ? "0px 1px 100px 0px rgba(0,0,0,0.1)" : "none"
-    },
+    boxShadow: props =>
+      props.status ? "0px 1px 100px 0px rgba(0,0,0,0.1)" : "none",
     position: "fixed",
     backgroundColor: props => (props.status ? "white" : "transparent"),
     top: 0,
@@ -127,5 +165,27 @@ const useStyles = makeStyles(theme => ({
         letterSpacing: 1.5,
       },
     },
+  },
+  "btn-icon": {
+    margin: "auto 0",
+    "@global": {
+      svg: {
+        fill: props => (props.status ? "grey" : "white"),
+      },
+    },
+  },
+  "search-box": {
+    position: "fixed",
+    top: 75,
+    width: "100%",
+    zIndex: 9999,
+    backgroundColor: "rgba(255,255,255,0.8)",
+    padding: "10px 20px",
+  },
+  "d-hide": {
+    display: "none",
+  },
+  "d-block": {
+    display: "block",
   },
 }))

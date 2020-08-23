@@ -8,7 +8,7 @@ function Footer(props) {
   const { imgLogoWithLabel } = props
   return (
     <footer className={classes["container"]}>
-      <Container fluid>
+      <Container>
         <Grid container justify="center" alignItems="center">
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <Img fixed={imgLogoWithLabel.childImageSharp.fixed}></Img>
