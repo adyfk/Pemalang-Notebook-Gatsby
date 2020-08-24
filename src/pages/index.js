@@ -7,7 +7,7 @@ import { Typography, Grid, Container, Box } from "@material-ui/core"
 import loadable from "@loadable/component"
 
 const AsyncComponent = loadable(
-  props => import(`../components/${props.page}}`),
+  props => import(`../components/${props.page}`),
   {
     cacheKey: props => props.page,
   }
