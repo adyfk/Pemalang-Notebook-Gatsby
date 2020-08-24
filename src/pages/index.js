@@ -5,13 +5,7 @@ import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Typography, Grid, Container, Box } from "@material-ui/core"
 import loadable from "@loadable/component"
-
-const AsyncComponent = loadable(
-  props => import(`../components/${props.page}`),
-  {
-    cacheKey: props => props.page,
-  }
-)
+import CardProduct from "../components/card-product"
 
 export default function Home(props) {
   const classes = useStyles()
@@ -45,11 +39,10 @@ export default function Home(props) {
             <Grid container className={classes["body-content"]} spacing={5}>
               {allProduct.nodes.map(product => (
                 <Grid lg={3} md={3} sm={6} xs={6} key={product.id} item>
-                  <AsyncComponent
-                    page="card-product"
+                  <CardProduct
                     productId={product.key}
                     {...product}
-                  ></AsyncComponent>
+                  ></CardProduct>
                 </Grid>
               ))}
             </Grid>
