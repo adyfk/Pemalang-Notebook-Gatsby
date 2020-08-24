@@ -5,10 +5,10 @@ import NavDesktop from "./nav-desktop"
 import { useMediaQuery, makeStyles, withTheme } from "@material-ui/core"
 import useScroll from "@hoooks/use-scroll"
 import clsx from "clsx"
-import { usingTheme } from "../utils/theme"
 import loadable from "@loadable/component"
 
 const Footer = loadable(() => import(`./footer`))
+const usingTheme = loadable(() => import(`../utils/theme`))
 function Layout(props) {
   const classes = useStyles()
   const matches = useMediaQuery(theme =>
