@@ -4,7 +4,13 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Typography, Grid, Container, Box } from "@material-ui/core"
-import CardProduct from "../components/card-product"
+
+const AsyncComponent = loadable(
+  props => import(`../components/${props.page}}`),
+  {
+    cacheKey: props => props.page,
+  }
+)
 
 export default function Home(props) {
   const classes = useStyles()
@@ -37,12 +43,15 @@ export default function Home(props) {
           <Container>
             <Grid container className={classes["body-content"]} spacing={5}>
               {allProduct.nodes.map(product => (
-                <Grid lg={3} md={3} sm={6} xs={6} key={product.id} item>
-                  <CardProduct
-                    productId={product.key}
-                    {...product}
-                  ></CardProduct>
-                </Grid>
+                <React.Suspense fallback={<div />}>
+                  <Grid lg={3} md={3} sm={6} xs={6} key={product.id} item>
+                    <AsyncComponent
+                      page="card-product"
+                      productId={product.key}
+                      {...product}
+                    ></AsyncComponent>
+                  </Grid>
+                </React.Suspense>
               ))}
             </Grid>
           </Container>
@@ -94,7 +103,7 @@ export const query = graphql`
     imgJumboTron: dataStatic(name: { eq: "jumbo_tron" }) {
       optimized_data_static {
         childImageSharp {
-          fluid(quality: 50) {
+          fluid(quality: 40) {
             ...GatsbyImageSharpFluid_tracedSVG
           }
         }
@@ -117,7 +126,7 @@ export const query = graphql`
         spec
         optimized_product {
           childImageSharp {
-            fluid {
+            fluid(quality: 40) {
               ...GatsbyImageSharpFluid_tracedSVG
             }
           }
