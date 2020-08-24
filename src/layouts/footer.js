@@ -1,23 +1,16 @@
 import React from "react"
 import Img from "gatsby-image"
 import { makeStyles, Grid, Typography, Container, Box } from "@material-ui/core"
-import GoogleMapReact from "google-map-react"
 import Instagram from "./../../static/icon/instagram.svg"
 import Tokopedia from "./../../static/icon/tokopedia.svg"
 import Shopee from "./../../static/icon/shopee.svg"
 import Whatsapp from "./../../static/icon/whatsapp.svg"
 import At from "./../../static/icon/at.svg"
-import RoomIcon from "@material-ui/icons/Room"
 import { graphql, useStaticQuery } from "gatsby"
+import loadable from "@loadable/component"
 
-const Position = () => (
-  <Box width="150px">
-    <Box fill="#FFFFFF">
-      <RoomIcon variant="white" />
-      <Typography>Pemalang Notebook</Typography>
-    </Box>
-  </Box>
-)
+const Maps = loadable(() => import(`../components/google-maps`))
+
 const query = graphql`
   query getFooterContact {
     urlInstagram: dataStatic(name: { eq: "contact_instagram" }) {
@@ -60,7 +53,10 @@ function Footer(props) {
   const { imgLogoWithLabel } = props
 
   return (
-    <footer className={classes["container"]}>
+    <footer
+      className={classes["container"]}
+      onScrollPassive={e => console.log(e)}
+    >
       <Container>
         <Grid container spacing={6} justify="center" alignItems="center">
           <Grid item lg={6} md={6} sm={12} xs={12}>
@@ -89,22 +85,7 @@ function Footer(props) {
           </Grid>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <div className={classes["google-maps"]}>
-              <GoogleMapReact
-                bootstrapURLKeys={{
-                  key: "AIzaSyAH9kmLWToQwTc1WBGhzsex2U8VIvUCgtk",
-                }}
-                defaultCenter={{
-                  lat: -6.884397,
-                  lng: 109.38074,
-                }}
-                zoom={18}
-              >
-                <Position
-                  lat={-6.884397}
-                  lng={109.38074}
-                  text="Pemalang Notebook"
-                />
-              </GoogleMapReact>
+              <Maps></Maps>
             </div>
           </Grid>
           <Grid item lg={1} md={1}></Grid>
