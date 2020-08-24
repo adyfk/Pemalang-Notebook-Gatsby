@@ -4,10 +4,11 @@ import { graphql, useStaticQuery } from "gatsby"
 import NavDesktop from "./nav-desktop"
 import { useMediaQuery, makeStyles, withTheme } from "@material-ui/core"
 import useScroll from "@hoooks/use-scroll"
-import Footer from "./footer"
 import clsx from "clsx"
 import { usingTheme } from "../utils/theme"
+import loadable from "@loadable/component"
 
+const Footer = loadable(() => import(`./footer`))
 function Layout(props) {
   const classes = useStyles()
   const matches = useMediaQuery(theme =>

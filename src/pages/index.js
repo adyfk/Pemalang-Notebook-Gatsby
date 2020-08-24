@@ -4,6 +4,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import { Typography, Grid, Container, Box } from "@material-ui/core"
+import loadable from "@loadable/component"
 
 const AsyncComponent = loadable(
   props => import(`../components/${props.page}}`),
