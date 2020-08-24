@@ -2,14 +2,17 @@ import React from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
 import { graphql, useStaticQuery } from "gatsby"
 import NavDesktop from "./nav-desktop"
-import { useMediaQuery, makeStyles } from "@material-ui/core"
+import { useMediaQuery, makeStyles, withTheme } from "@material-ui/core"
 import useScroll from "@hoooks/use-scroll"
 import Footer from "./footer"
 import clsx from "clsx"
+import { usingTheme } from "../utils/theme"
 
 function Layout(props) {
   const classes = useStyles()
-  const matches = useMediaQuery(theme => theme.breakpoints.up("md"))
+  const matches = useMediaQuery(theme =>
+    usingTheme(theme, props.theme).breakpoints.up("md")
+  )
   const { y } = useScroll()
   const { imgLogo, imgLogoWithLabel } = useStaticQuery(graphql`
     query getLogo {
@@ -34,7 +37,7 @@ function Layout(props) {
     }
   `)
 
-  const status = window.location.pathname === "/" ? y > 200 : true
+  const status = props.location.pathname === "/" ? y > 200 : true
   return (
     <div className={clsx(props.top || classes["space-top"])}>
       <CssBaseline />
@@ -58,4 +61,4 @@ const useStyles = makeStyles(() => ({
     marginTop: 75,
   },
 }))
-export default Layout
+export default withTheme(Layout)

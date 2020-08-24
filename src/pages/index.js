@@ -11,7 +11,7 @@ export default function Home(props) {
   const { imgJumboTron, labelJumboTron, allProduct } = props.data
 
   return (
-    <Layout top={true}>
+    <Layout {...props} top={true}>
       <section className={classes["jumbo-tron"]} id="jumbo-tron">
         <Img
           className={classes["jumbo-tron-image"]}
