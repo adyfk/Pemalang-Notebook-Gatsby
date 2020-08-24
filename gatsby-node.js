@@ -42,9 +42,7 @@ exports.sourceNodes = async ({
       const trim = item => item.trim()
       data["images"] = data.images.split(",").map(trim)
 
-      const price = data.price.split("|").map(trim)
-
-      data["price"] = [+price[0], +price[1]]
+      data["price"] = +data.price
 
       const spec = data.spec.split("\n").map(trim)
       data["spec"] = spec
@@ -56,6 +54,7 @@ exports.sourceNodes = async ({
       data["merk"] = merk
 
       const available = data.available === "TRUE"
+
       data["available"] = available
 
       groupLaptop[data.type] = groupLaptop[data.type] || {}
@@ -143,6 +142,7 @@ exports.createPages = async ({ actions, graphql }) => {
             images
             merk
             type
+            color
           }
         }
       }
@@ -158,11 +158,9 @@ exports.createPages = async ({ actions, graphql }) => {
 
   items.forEach(edge => {
     const { node } = edge
-    const [type, merk] = [
-      node.type.toLowerCase(),
-      node.merk.map(i => i.toLowerCase()),
-    ]
-    const pathUrl = `/${type}/${merk.join("/")}/${node.key}`
+    const pathUrl = `/${node.type}/${node.merk.join("/")}/${
+      node.key
+    }`.toLowerCase()
     createPage({
       path: pathUrl,
       component: path.resolve(`src/templates/product-laptop.js`),

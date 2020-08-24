@@ -117,7 +117,7 @@ const useStyles = makeStyles(theme => ({
       paddingRight: 30,
     },
     boxShadow: props =>
-      props.status ? "0px 1px 100px 0px rgba(0,0,0,0.1)" : "none",
+      props.status ? "0px 1px 15px 0px rgba(0,0,0,0.1)" : "none",
     position: "fixed",
     backgroundColor: props => (props.status ? "white" : "transparent"),
     top: 0,

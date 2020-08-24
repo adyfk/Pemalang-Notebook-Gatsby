@@ -12,8 +12,8 @@ import { graphql, useStaticQuery } from "gatsby"
 
 const Position = () => (
   <Box width="150px">
-    <Box fill="#FFFFFF" color="#FFFFFF">
-      <RoomIcon color="#FFFFFF" variant="white" />
+    <Box fill="#FFFFFF">
+      <RoomIcon variant="white" />
       <Typography>Pemalang Notebook</Typography>
     </Box>
   </Box>
@@ -58,10 +58,11 @@ function Footer(props) {
   } = useStaticQuery(query)
   const classes = useStyles()
   const { imgLogoWithLabel } = props
+
   return (
     <footer className={classes["container"]}>
       <Container>
-        <Grid container justify="center" alignItems="center">
+        <Grid container spacing={6} justify="center" alignItems="center">
           <Grid item lg={6} md={6} sm={12} xs={12}>
             <Grid container spacing={4} alignItems="center" direction="column">
               <Grid item>
@@ -86,7 +87,7 @@ function Footer(props) {
               </Grid>
             </Grid>
           </Grid>
-          <Grid item lg={5} md={5} sm={12} xs={12} alignItems="center">
+          <Grid item lg={5} md={5} sm={12} xs={12}>
             <div className={classes["google-maps"]}>
               <GoogleMapReact
                 bootstrapURLKeys={{
@@ -128,12 +129,8 @@ function Footer(props) {
 
 const useStyles = makeStyles(() => ({
   container: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
     width: "100%",
-    padding: "0px 0px 100px 0px",
-    transform: "translate(0,70%)",
+    padding: "50px 0px 100px 0px",
   },
   "google-maps": {
     height: "300px",
