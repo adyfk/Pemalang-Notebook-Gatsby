@@ -6,9 +6,12 @@ import { useMediaQuery, makeStyles, withTheme } from "@material-ui/core"
 import useScroll from "@hoooks/use-scroll"
 import clsx from "clsx"
 import loadable from "@loadable/component"
-
 const Footer = loadable(() => import(`./footer`))
-const usingTheme = loadable(() => import(`../utils/theme`))
+
+const usingTheme = (...theme) => {
+  return theme[0] || theme[1]
+}
+
 function Layout(props) {
   const classes = useStyles()
   const matches = useMediaQuery(theme =>
@@ -20,7 +23,7 @@ function Layout(props) {
       imgLogo: file(name: { eq: "logo-pemalang-notebook" }) {
         name
         childImageSharp {
-          fixed(width: 200, quality: 100) {
+          fixed(width: 200, quality: 50) {
             ...GatsbyImageSharpFixed
           }
         }
@@ -30,7 +33,7 @@ function Layout(props) {
       ) {
         name
         childImageSharp {
-          fixed(width: 300, quality: 100) {
+          fixed(width: 300, quality: 50) {
             ...GatsbyImageSharpFixed
           }
         }
