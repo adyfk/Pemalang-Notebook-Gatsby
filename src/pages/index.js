@@ -44,15 +44,13 @@ export default function Home(props) {
           <Container>
             <Grid container className={classes["body-content"]} spacing={5}>
               {allProduct.nodes.map(product => (
-                <React.Suspense fallback={<div />}>
-                  <Grid lg={3} md={3} sm={6} xs={6} key={product.id} item>
-                    <AsyncComponent
-                      page="card-product"
-                      productId={product.key}
-                      {...product}
-                    ></AsyncComponent>
-                  </Grid>
-                </React.Suspense>
+                <Grid lg={3} md={3} sm={6} xs={6} key={product.id} item>
+                  <AsyncComponent
+                    page="card-product"
+                    productId={product.key}
+                    {...product}
+                  ></AsyncComponent>
+                </Grid>
               ))}
             </Grid>
           </Container>
