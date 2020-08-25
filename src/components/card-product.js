@@ -36,7 +36,7 @@ const CardProduct = props => {
           </Grid>
           <Grid item lg={9} md={9} xs={9} sm={9}>
             <Box fontWeight="700" letterSpacing={2}>
-              <Typography>{props.title}</Typography>
+              <Typography color="primary">{props.title}</Typography>
             </Box>
           </Grid>
           <Grid item lg={3} md={3} xs={3} sm={3} align="right">

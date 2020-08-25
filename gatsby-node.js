@@ -132,18 +132,11 @@ exports.createPages = async ({ actions, graphql }) => {
   const result = await graphql(`
     {
       allProduct {
-        edges {
-          node {
-            key
-            title
-            spec
-            cond
-            price
-            images
-            merk
-            type
-            color
-          }
+        nodes {
+          id
+          merk
+          type
+          key
         }
       }
     }
@@ -154,10 +147,9 @@ exports.createPages = async ({ actions, graphql }) => {
     return Promise.reject(result.errors)
   }
 
-  const items = result.data.allProduct.edges
+  const items = result.data.allProduct.nodes
 
-  items.forEach(edge => {
-    const { node } = edge
+  items.forEach(node => {
     const pathUrl = `/${node.type}/${node.merk.join("/")}/${
       node.key
     }`.toLowerCase()
@@ -165,7 +157,7 @@ exports.createPages = async ({ actions, graphql }) => {
       path: pathUrl,
       component: path.resolve(`src/templates/product-laptop.js`),
       context: {
-        ...edge.node,
+        productId: node.id,
       },
     })
   })

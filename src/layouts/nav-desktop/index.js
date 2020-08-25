@@ -27,7 +27,7 @@ function NavDesktop(props) {
             </div>
             <div className={classes["btn-menu"]}>
               <Typography className={classes["label"]} component="span">
-                Accesories
+                Accessories
               </Typography>
             </div>
           </div>
