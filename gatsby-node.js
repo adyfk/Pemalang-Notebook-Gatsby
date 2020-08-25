@@ -41,8 +41,7 @@ exports.sourceNodes = async ({
       }
       const trim = item => item.trim()
       data["images"] = data.images.split("\n").map(trim)
-
-      data["price"] = +data.price
+      data["price"] = +data.price.replace(/,00$/g, "").replace(/\D/g, "")
 
       const spec = data.spec.split("\n").map(trim)
       data["spec"] = spec
@@ -50,8 +49,11 @@ exports.sourceNodes = async ({
       const cond = data.cond.split("\n").map(trim)
       data["cond"] = cond
 
-      const merk = data.merk.split("\n")
+      const merk = data.merk.split("\n").map(trim)
       data["merk"] = merk
+
+      const color = data.color.split("\n").map(trim)
+      data["color"] = color
 
       const available = data.available === "TRUE"
 
