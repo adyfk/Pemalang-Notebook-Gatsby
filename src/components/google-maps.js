@@ -1,6 +1,7 @@
 import React from "react"
 import RoomIcon from "@material-ui/icons/Room"
-import { Box, Typography } from "@material-ui/core"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
 import loadable from "@loadable/component"
 
 const GoogleMapReact = loadable(() => import(`google-map-react`))
