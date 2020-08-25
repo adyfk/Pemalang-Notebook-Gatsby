@@ -1,6 +1,8 @@
 import React from "react"
-import { Grid, Box, Typography } from "@material-ui/core"
-import { makeStyles } from "@material-ui/core/styles"
+import Typography from "@material-ui/core/Typography"
+import Box from "@material-ui/core/Box"
+import Grid from "@material-ui/core/Grid"
+import makeStyles from "@material-ui/core/styles/makeStyles"
 import { Link } from "gatsby"
 import Img from "gatsby-image"
 

@@ -1,9 +1,12 @@
 import React from "react"
 import Layout from "../layouts"
-import makeStyles from "@material-ui/core/styles/makeStyles"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
-import { Typography, Grid, Box, Container } from "@material-ui/core"
+import makeStyles from "@material-ui/core/styles/makeStyles"
+import Grid from "@material-ui/core/Grid"
+import Box from "@material-ui/core/Box"
+import Typography from "@material-ui/core/Typography"
+import Container from "@material-ui/core/Container"
 import CardProduct from "../components/card-product"
 
 export default function Home(props) {
