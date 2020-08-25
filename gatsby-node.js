@@ -40,7 +40,7 @@ exports.sourceNodes = async ({
         ...product,
       }
       const trim = item => item.trim()
-      data["images"] = data.images.split(",").map(trim)
+      data["images"] = data.images.split("\n").map(trim)
 
       data["price"] = +data.price
 
@@ -50,7 +50,7 @@ exports.sourceNodes = async ({
       const cond = data.cond.split("\n").map(trim)
       data["cond"] = cond
 
-      const merk = data.merk.split(",")
+      const merk = data.merk.split("\n")
       data["merk"] = merk
 
       const available = data.available === "TRUE"
