@@ -93,13 +93,7 @@ function Footer(props) {
           <Grid item lg md xs sm>
             <Box align="center" p={4} mt={4}>
               <Typography component="span" variant="caption">
-                Terms of Use •{" "}
-              </Typography>
-              <Typography component="span" variant="caption">
-                Privacy Policy •{" "}
-              </Typography>
-              <Typography component="span" variant="caption">
-                {` `} © 2020 All Rights Reserved
+                © 2020 All Rights Reserved
               </Typography>
             </Box>
           </Grid>

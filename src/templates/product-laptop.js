@@ -11,7 +11,8 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 import CircleCheckedIcon from "@material-ui/icons/CheckCircle"
 import CancelIcon from "@material-ui/icons/Cancel"
 import Img from "gatsby-image"
-import { Tooltip, withTheme } from "@material-ui/core"
+import withTheme from "@material-ui/core/styles/withTheme"
+import Tooltip from "@material-ui/core/Tooltip"
 
 const ProductLaptop = ({ data, ...props }) => {
   const [idx_image, setIdxImage] = useState(0)
@@ -26,12 +27,12 @@ const ProductLaptop = ({ data, ...props }) => {
             <Grid item lg={6} md={6} xs={12} sm={12}>
               <Grid container>
                 <Grid container spacing={1} item lg md xs sm>
-                  <Grid item>
+                  <Grid item className={classes["container-tab-image"]}>
                     {images.map((image, idx) => (
                       <Box
                         className={clsx(
-                          classes["image-slider"],
-                          idx_image === idx && classes["image-active"]
+                          classes["image-tab"],
+                          idx_image === idx && classes["image-tab-active"]
                         )}
                         onClick={() => setIdxImage(idx)}
                         key={idx}
@@ -116,11 +117,11 @@ const ProductLaptop = ({ data, ...props }) => {
                     </Box>
                   </Typography>
                   <Typography variant="caption">
-                    <Box pl={1}>
+                    <ul>
                       {product.spec.map((txt, idx) => (
                         <li key={idx}>{txt}</li>
                       ))}
-                    </Box>
+                    </ul>
                   </Typography>
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
@@ -130,11 +131,11 @@ const ProductLaptop = ({ data, ...props }) => {
                     </Box>
                   </Typography>
                   <Typography variant="caption">
-                    <Box pl={1}>
+                    <ul>
                       {product.cond.map((txt, idx) => (
                         <li key={idx}>{txt}</li>
                       ))}
-                    </Box>
+                    </ul>
                   </Typography>
                 </Grid>
               </Grid>
@@ -147,6 +148,16 @@ const ProductLaptop = ({ data, ...props }) => {
 }
 
 const useStyles = makeStyles(theme => ({
+  "@global": {
+    ul: {
+      "& li": {
+        marginLeft: -10,
+      },
+    },
+  },
+  "container-tab-image": {
+    margin: "auto",
+  },
   container: {
     [theme.breakpoints.up("md")]: {
       paddingLeft: 22,
@@ -159,7 +170,7 @@ const useStyles = makeStyles(theme => ({
       paddingRight: 70,
     },
   },
-  "image-slider": {
+  "image-tab": {
     border: "none",
     cursor: "pointer",
     width: 50,
@@ -169,7 +180,7 @@ const useStyles = makeStyles(theme => ({
     // borderColor: theme.palette.orange.dark,
     // transition: "border-color 250ms ease-in 0s",
   },
-  "image-active": {
+  "image-tab-active": {
     border: `1px solid ${theme.palette.orange.light}`,
   },
   "real-price": {
