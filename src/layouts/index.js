@@ -1,12 +1,13 @@
 import React from "react"
 import CssBaseline from "@material-ui/core/CssBaseline"
+import clsx from "clsx"
 import { graphql, useStaticQuery } from "gatsby"
 import NavDesktop from "./nav-desktop"
 import useMediaQuery from "@material-ui/core/useMediaQuery"
-import { withTheme, makeStyles } from "@material-ui/core"
+import { withTheme, makeStyles } from "@material-ui/core/styles"
 import useScroll from "@hoooks/use-scroll"
-import clsx from "clsx"
 import loadable from "@loadable/component"
+
 const Footer = loadable(() => import(`./footer`))
 
 const usingTheme = (...theme) => {

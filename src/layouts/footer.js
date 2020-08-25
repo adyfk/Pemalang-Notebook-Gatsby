@@ -1,6 +1,7 @@
 import React from "react"
 import Img from "gatsby-image"
-import { makeStyles, Grid, Typography, Container, Box } from "@material-ui/core"
+import { Grid, Typography, Container, Box } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import Instagram from "./../../static/icon/instagram.svg"
 import Tokopedia from "./../../static/icon/tokopedia.svg"
 import Shopee from "./../../static/icon/shopee.svg"

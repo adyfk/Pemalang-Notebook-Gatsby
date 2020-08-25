@@ -2,13 +2,8 @@ import React, { useState } from "react"
 import clsx from "clsx"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
-import {
-  makeStyles,
-  Typography,
-  IconButton,
-  Grid,
-  InputBase,
-} from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
+import { Typography, IconButton, Grid, InputBase } from "@material-ui/core"
 import Search from "@material-ui/icons/Search"
 import Clear from "@material-ui/icons/Clear"
 

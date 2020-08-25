@@ -47,5 +47,10 @@
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"
+  },
+  "devDependencies": {
+    "babel-plugin-import": "^1.13.0",
+    "babel-plugin-transform-imports": "^2.0.0",
+    "babel-preset-gatsby": "^0.5.6"
   }
 }

@@ -1,7 +1,8 @@
 import React from "react"
-import { Grid, makeStyles, Box, Typography } from "@material-ui/core"
-import Img from "gatsby-image"
+import { Grid, Box, Typography } from "@material-ui/core"
+import { makeStyles } from "@material-ui/core/styles"
 import { Link } from "gatsby"
+import Img from "gatsby-image"
 
 const CardProduct = props => {
   const classes = useStyles(props)
