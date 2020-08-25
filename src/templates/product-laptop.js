@@ -15,7 +15,7 @@ import { Tooltip, withTheme } from "@material-ui/core"
 
 const ProductLaptop = ({ data, ...props }) => {
   const [idx_image, setIdxImage] = useState(0)
-  const classes = useStyles()
+  const classes = useStyles(props)
   const product = data.product
   const images = product.optimized_product
   return (
