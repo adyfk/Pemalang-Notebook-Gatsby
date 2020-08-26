@@ -157,9 +157,10 @@ exports.createPages = async ({ actions, graphql }) => {
     }`.toLowerCase()
     createPage({
       path: pathUrl,
-      component: path.resolve(`src/templates/product-laptop.js`),
+      component: path.resolve(`src/templates/product.js`),
       context: {
         productId: node.id,
+        merk: node.merk[0],
       },
     })
   })

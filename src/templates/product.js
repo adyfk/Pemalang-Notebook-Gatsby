@@ -13,8 +13,9 @@ import CancelIcon from "@material-ui/icons/Cancel"
 import Img from "gatsby-image"
 import withTheme from "@material-ui/core/styles/withTheme"
 import Tooltip from "@material-ui/core/Tooltip"
+import ListCardProduct from "../components/list-card-product"
 
-const ProductLaptop = ({ data, ...props }) => {
+const ProductTemplate = ({ data, ...props }) => {
   const [idx_image, setIdxImage] = React.useState(0)
   const classes = useStyles(props)
   const product = data.product
@@ -144,6 +145,16 @@ const ProductLaptop = ({ data, ...props }) => {
           </Grid>
         </Container>
       </article>
+      <section id="body-content" className={classes["body-content"]}>
+        <Box pt={4}>
+          <Typography align="center" variant="h6" fontWeight="bold">
+            Related Product
+          </Typography>
+        </Box>
+        <Box py={4}>
+          <ListCardProduct data={data.productRelated}></ListCardProduct>
+        </Box>
+      </section>
     </Layout>
   )
 }
@@ -197,10 +208,18 @@ const useStyles = makeStyles(theme => ({
     color: "white",
     fontSize: 13,
   },
+  "body-content": {
+    [theme.breakpoints.up("md")]: {
+      paddingLeft: 30,
+      paddingRight: 30,
+    },
+    borderTop: "1px solid " + theme.palette.orange.light,
+    borderBottom: "1px solid " + theme.palette.orange.light,
+  },
 }))
 
 export const query = graphql`
-  query getProductById($productId: String) {
+  query getProduct($productId: String, $merk: String) {
     product(id: { eq: $productId }) {
       available
       color
@@ -222,7 +241,32 @@ export const query = graphql`
         }
       }
     }
+    productRelated: allProduct(
+      limit: 3
+      sort: { order: DESC, fields: key }
+      filter: { merk: { eq: $merk }, id: { ne: $productId } }
+    ) {
+      nodes {
+        key
+        color
+        available
+        price
+        merk
+        title
+        status
+        type
+        id
+        spec
+        optimized_product {
+          childImageSharp {
+            fluid(quality: 40) {
+              ...GatsbyImageSharpFluid_tracedSVG
+            }
+          }
+        }
+      }
+    }
   }
 `
 
-export default withTheme(ProductLaptop)
+export default withTheme(ProductTemplate)

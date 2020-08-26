@@ -3,11 +3,9 @@ import Layout from "../layouts"
 import { graphql } from "gatsby"
 import Img from "gatsby-image"
 import makeStyles from "@material-ui/core/styles/makeStyles"
-import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
 import Typography from "@material-ui/core/Typography"
-import Container from "@material-ui/core/Container"
-import CardProduct from "../components/card-product"
+import ListCardProduct from "../components/list-card-product"
 
 export default function Home(props) {
   const classes = useStyles()
@@ -30,25 +28,14 @@ export default function Home(props) {
           })}
         </div>
       </section>
-      <section id="body-content">
+      <section className={classes["body-content"]}>
         <Box pt={4}>
-          <Typography align="center" variant="h5" fontWeight="bold">
-            Produk Terbaru
+          <Typography align="center" variant="h6" fontWeight="bold">
+            Latest Product
           </Typography>
         </Box>
         <Box py={4}>
-          <Container>
-            <Grid container className={classes["body-content"]} spacing={5}>
-              {allProduct.nodes.map(product => (
-                <Grid lg={3} md={3} sm={6} xs={6} key={product.id} item>
-                  <CardProduct
-                    productId={product.key}
-                    {...product}
-                  ></CardProduct>
-                </Grid>
-              ))}
-            </Grid>
-          </Container>
+          <ListCardProduct data={allProduct}></ListCardProduct>
         </Box>
       </section>
     </Layout>
@@ -89,6 +76,7 @@ export const useStyles = makeStyles(theme => ({
       paddingLeft: 30,
       paddingRight: 30,
     },
+    borderBottom: "1px solid " + theme.palette.orange.light,
   },
 }))
 
@@ -106,7 +94,7 @@ export const query = graphql`
     labelJumboTron: dataStatic(name: { eq: "jumbo_tron_label" }) {
       label
     }
-    allProduct(limit: 4, sort: { order: DESC, fields: key }) {
+    allProduct(limit: 3, sort: { order: DESC, fields: key }) {
       nodes {
         key
         color
