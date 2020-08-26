@@ -4,6 +4,7 @@ import jssExpand from "jss-plugin-expand"
 import jssCompose from "jss-plugin-compose"
 import jssGlobal from "jss-plugin-global"
 import jssExtend from "jss-plugin-extend"
+import jssIsolate from "jss-plugin-isolate"
 
 const stylesProviderProps = {
   jss: create({
@@ -14,6 +15,7 @@ const stylesProviderProps = {
       jssExpand(),
       jssCompose(),
       jssExtend(),
+      jssIsolate({ isolate:false })
     ],
     insertionPoint: `mui-inject-first`,
   }),

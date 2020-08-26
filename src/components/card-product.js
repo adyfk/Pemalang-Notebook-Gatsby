@@ -25,14 +25,14 @@ const CardProduct = props => {
       </Grid>
       <Grid lg={12} md={12} xs={12} sm={12} item>
         <Grid container alignItems="center">
-          <Grid item lg={9} md={9} xs={9} sm={9}>
+          <Grid item lg={3} md={3} xs={3} sm={3}>
             <Typography className={classes["top-label"]}>
-              {props.color.join(", ")}
+              {props.type}
             </Typography>
           </Grid>
-          <Grid item lg={3} md={3} xs={3} sm={3} align="right">
+          <Grid item lg={9} md={9} xs={9} sm={9} align="right">
             <Typography className={classes["top-label"]}>
-              {props.color.length} Color
+              {props.merk.join(" - ")}
             </Typography>
           </Grid>
           <Grid item lg={9} md={9} xs={9} sm={9}>
@@ -85,7 +85,7 @@ const useStyles = makeStyles(() => ({
     backgroundColor: "white",
   },
   "top-label": {
-    fontSize: 11,
+    fontSize: 10,
     color: "#333333",
     wordWrap: "nowrap",
     textTransform: "uppercase",

@@ -36,6 +36,7 @@
     "jss-plugin-expand": "^10.4.0",
     "jss-plugin-extend": "^10.4.0",
     "jss-plugin-global": "^10.4.0",
+    "jss-plugin-isolate": "^10.4.0",
     "lodash": "^4.17.20",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",

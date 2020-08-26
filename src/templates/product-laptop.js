@@ -61,7 +61,7 @@ const ProductLaptop = ({ data, ...props }) => {
             <Grid item lg={5} md={5} xs={12} sm={12}>
               <Grid container spacing={2}>
                 <Grid item lg md sx xs>
-                  <Typography variant="body1" component="span">
+                  <Typography variant="subtitle1" component="span">
                     <Box fontWeight={500}>
                       {product.title}
                       <Tooltip
@@ -88,6 +88,7 @@ const ProductLaptop = ({ data, ...props }) => {
                   <Typography
                     className={classes["real-price"]}
                     component="span"
+                    variant="subtitle1"
                   >
                     Rp {product.price.toLocaleString()}
                   </Typography>
