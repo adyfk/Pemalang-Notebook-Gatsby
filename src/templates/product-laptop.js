@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import clsx from "clsx"
 import { graphql } from "gatsby"
 import SwipeableViews from "react-swipeable-views"
@@ -15,7 +15,7 @@ import withTheme from "@material-ui/core/styles/withTheme"
 import Tooltip from "@material-ui/core/Tooltip"
 
 const ProductLaptop = ({ data, ...props }) => {
-  const [idx_image, setIdxImage] = useState(0)
+  const [idx_image, setIdxImage] = React.useState(0)
   const classes = useStyles(props)
   const product = data.product
   const images = product.optimized_product

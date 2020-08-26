@@ -101,7 +101,7 @@ exports.sourceNodes = async ({
     })
 
     responseDataStatic.data.valueRanges[0].values.forEach((i, idx) => {
-      const data = { name: i[0], url: i[1], label: i[2] }
+      const data = { name: i[0], url: i[1], label: i[2] || "" }
       createNode({
         id: createNodeId(`dataStatic_${idx}`),
         parent: `__SOURCE__`,

@@ -15,7 +15,7 @@ const stylesProviderProps = {
       jssExpand(),
       jssCompose(),
       jssExtend(),
-      jssIsolate({ isolate:false })
+      jssIsolate({ isolate: false }),
     ],
     insertionPoint: `mui-inject-first`,
   }),

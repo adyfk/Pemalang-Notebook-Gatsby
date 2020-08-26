@@ -65,7 +65,7 @@ export const useStyles = makeStyles(theme => ({
       position: "absolute",
       top: 0,
       backgroundColor: "black",
-      opacity: 0.5,
+      opacity: 0.7,
       width: "100%",
       height: "100%",
     },

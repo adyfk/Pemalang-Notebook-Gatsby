@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React from "react"
 import clsx from "clsx"
 import Img from "gatsby-image"
 import { Link } from "gatsby"
@@ -9,25 +9,45 @@ import InputBase from "@material-ui/core/InputBase"
 import IconButton from "@material-ui/core/IconButton"
 import Search from "@material-ui/icons/Search"
 import Clear from "@material-ui/icons/Clear"
+import loadable from "@loadable/component"
+
+const Product = loadable(() => import("./product"))
 
 function NavDesktop(props) {
-  const [show, setShow] = useState("")
-  const [search, setSearch] = useState("")
+  let timer
+  const [show, setShow] = React.useState("")
+  const [search, setSearch] = React.useState("")
   const classes = useStyles({ status: props.status })
   const { imgLogo } = props
+  const handleMouseOver = message => () => {
+    clearTimeout(timer)
+    if (show !== message) setShow(message)
+  }
+  const handleMouseOut = () => {
+    timer = setTimeout(() => setShow(""), 100)
+  }
   return (
     <header>
       <nav className={classes.nav}>
         <div aria-label="Desktop Navigation" className={classes["container"]}>
           <div className={classes["left-menu"]}>
-            <div className={classes["btn-menu"]}>
+            <div
+              onMouseOver={handleMouseOver("tab-product")}
+              onFocus={handleMouseOver("tab-product")}
+              onMouseLeave={handleMouseOut}
+              onBlur={handleMouseOut}
+              tabindex="0"
+              role="button"
+              aria-expanded="true"
+              className={classes["btn-menu"]}
+            >
               <Typography className={classes["label"]} component="span">
-                Laptop
+                Product
               </Typography>
             </div>
             <div className={classes["btn-menu"]}>
               <Typography className={classes["label"]} component="span">
-                Accessories
+                Marchandise
               </Typography>
             </div>
           </div>
@@ -44,13 +64,13 @@ function NavDesktop(props) {
           <div className={classes["right-menu"]}>
             <div className={classes["btn-menu"]}>
               <Typography className={classes["label"]} component="span">
-                Percetakan
+                Printing
               </Typography>
             </div>
             <Link to="/contact">
               <div className={classes["btn-menu"]}>
                 <Typography className={classes["label"]} component="span">
-                  Kontak
+                  Contact Us
                 </Typography>
               </div>
             </Link>
@@ -87,6 +107,14 @@ function NavDesktop(props) {
           </Grid>
         </Grid>
       </div>
+      {show === "tab-product" && (
+        <Product
+          onMouseOver={handleMouseOver("tab-product")}
+          onFocus={handleMouseOver("tab-product")}
+          onMouseLeave={handleMouseOut}
+          onBlur={handleMouseOut}
+        ></Product>
+      )}
     </header>
   )
 }

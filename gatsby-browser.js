@@ -1,5 +1,7 @@
-const React = require("react")
-const { createMuiTheme, ThemeProvider } = require("@material-ui/core")
+import React from "react"
+import "./src/styles/global.css"
+import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider"
+import createMuiTheme from "@material-ui/core/styles/createMuiTheme"
 
 const theme = createMuiTheme({
   palette: {
@@ -20,6 +22,6 @@ const theme = createMuiTheme({
     },
   },
 })
-exports.wrapRootElement = ({ element }) => {
+export const wrapRootElement = ({ element }) => {
   return <ThemeProvider theme={theme}>{element}</ThemeProvider>
 }

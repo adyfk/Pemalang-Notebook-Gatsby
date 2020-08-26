@@ -1,6 +1,6 @@
-import React, { useState } from "react"
+import React from "react"
 export default function Rebuild() {
-  const [state, setState] = useState(false)
+  const [state, setState] = React.useState(false)
   const action = async () => {
     setState("loading")
     await fetch(
