@@ -4,8 +4,10 @@ import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import { Link } from "gatsby"
-import Img from "gatsby-image"
 import CircleColor from "./circle-color"
+import loadable from "@loadable/component"
+
+const Img = loadable(() => import("gatsby-image"))
 
 const CardProduct = props => {
   const classes = useStyles(props)

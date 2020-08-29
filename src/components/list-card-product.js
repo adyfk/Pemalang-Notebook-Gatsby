@@ -5,7 +5,6 @@ import Container from "@material-ui/core/Container"
 import CardProduct from "./card-product"
 
 function ListCardProduct(props) {
-  console.log(props)
   const classes = useStyles()
   return (
     <Container>

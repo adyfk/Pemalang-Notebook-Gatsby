@@ -1,0 +1,31 @@
+=================================================================================================================
+BreadCrumb
+=================================================================================================================
+
+                <Grid item lg={12} md={12} sm={12} xs={12}>
+                  <Breadcrumbs separator="›" aria-label="breadcrumb">
+                    <Link color="primary.dark" variant="body2" href="/">
+                      Home
+                    </Link>
+                    <Link color="primary.dark" variant="body2" href="/">
+                      {product.type}
+                    </Link>
+                    {product.merk.map((text, idx) => {
+                      if (idx + 1 === product.merk.length) {
+                        return (
+                          <Typography color="primary.dark" variant="body2">
+                            {text}
+                          </Typography>
+                        )
+                      }
+                      return (
+                        <Link color="primary.dark" variant="body2" href="/">
+                          {text}
+                        </Link>
+                      )
+                    })}
+                  </Breadcrumbs>
+                </Grid>
+=================================================================================================================
+BreadCrumb
+=================================================================================================================

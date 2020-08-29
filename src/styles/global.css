@@ -14,3 +14,8 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #00609d;
 }
+
+div:focus,
+span:focus {
+  outline: none;
+}

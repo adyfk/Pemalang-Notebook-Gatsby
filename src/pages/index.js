@@ -94,7 +94,7 @@ export const query = graphql`
     labelJumboTron: dataStatic(name: { eq: "jumbo_tron_label" }) {
       label
     }
-    allProduct(limit: 3, sort: { order: DESC, fields: key }) {
+    allProduct(limit: 3, sort: { order: ASC, fields: key }) {
       nodes {
         key
         color

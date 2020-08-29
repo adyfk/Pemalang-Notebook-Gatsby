@@ -34,7 +34,7 @@ exports.sourceNodes = async ({
       }
       rows.push(rowData)
     }
-    const groupLaptop = {}
+    const dataMap = {}
     rows = rows.map(product => {
       const data = {
         ...product,
@@ -58,21 +58,12 @@ exports.sourceNodes = async ({
       const available = data.available === "TRUE"
 
       data["available"] = available
-
-      groupLaptop[data.type] = groupLaptop[data.type] || {}
-      if (merk[1]) {
-        groupLaptop[data.type][merk[0]] = _.uniq(
-          typeof groupLaptop[data.type][merk[0]] === "object"
-            ? [...groupLaptop[data.type][merk[0]], merk[1]]
-            : [merk[1]]
-        )
-      } else {
-        groupLaptop[data.type][merk[0]] = []
-      }
-
+      
+      dataMap[data.type] = new Set()
       return data
     })
     rows.forEach((item, i) => {
+      dataMap[item.type].add(item.merk[0])
       const itemNode = {
         id: createNodeId(`product_${i}`),
         parent: `__SOURCE__`,
@@ -86,20 +77,11 @@ exports.sourceNodes = async ({
 
       createNode(itemNode)
     })
-    const object = {
-      ...groupLaptop,
-      attributes: Object.keys(groupLaptop),
-    }
-    createNode({
-      id: createNodeId(`object`),
-      parent: `__SOURCE__`,
-      internal: {
-        type: `object`,
-        contentDigest: createContentDigest(object),
-      },
-      ...object,
+    Object.keys(dataMap).forEach(type=>{
+      dataMap[type] = [...dataMap[type]]
     })
 
+    fs.writeFile("./my-nav.json", JSON.stringify(dataMap), "utf8", () => "")
     responseDataStatic.data.valueRanges[0].values.forEach((i, idx) => {
       const data = { name: i[0], url: i[1], label: i[2] || "" }
       createNode({

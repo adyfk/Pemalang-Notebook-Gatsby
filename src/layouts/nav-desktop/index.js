@@ -24,7 +24,7 @@ function NavDesktop(props) {
     if (show !== message) setShow(message)
   }
   const handleMouseOut = () => {
-    timer = setTimeout(() => setShow(""), 100)
+    timer = setTimeout(() => setShow(""), 50)
   }
   return (
     <header>
@@ -36,9 +36,8 @@ function NavDesktop(props) {
               onFocus={handleMouseOver("tab-product")}
               onMouseLeave={handleMouseOut}
               onBlur={handleMouseOut}
-              tabindex="0"
+              tabIndex="0"
               role="button"
-              aria-expanded="true"
               className={classes["btn-menu"]}
             >
               <Typography className={classes["label"]} component="span">
@@ -70,7 +69,7 @@ function NavDesktop(props) {
             <Link to="/contact">
               <div className={classes["btn-menu"]}>
                 <Typography className={classes["label"]} component="span">
-                  Contact Us
+                  Contact
                 </Typography>
               </div>
             </Link>
@@ -107,14 +106,13 @@ function NavDesktop(props) {
           </Grid>
         </Grid>
       </div>
-      {show === "tab-product" && (
         <Product
+          open={show === "tab-product"}
           onMouseOver={handleMouseOver("tab-product")}
           onFocus={handleMouseOver("tab-product")}
           onMouseLeave={handleMouseOut}
           onBlur={handleMouseOut}
         ></Product>
-      )}
     </header>
   )
 }

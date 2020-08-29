@@ -1,7 +1,6 @@
 import React from "react"
 import "./src/styles/global.css"
-import ThemeProvider from "@material-ui/core/styles/MuiThemeProvider"
-import createMuiTheme from "@material-ui/core/styles/createMuiTheme"
+import { ThemeProvider, createMuiTheme } from "@material-ui/core/styles"
 
 const theme = createMuiTheme({
   palette: {

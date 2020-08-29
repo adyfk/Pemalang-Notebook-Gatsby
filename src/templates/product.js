@@ -27,7 +27,16 @@ const ProductTemplate = ({ data, ...props }) => {
           <Grid container spacing={6}>
             <Grid item lg={6} md={6} xs={12} sm={12}>
               <Grid container>
-                <Grid container spacing={1} item lg md xs sm>
+                <Grid
+                  container
+                  style={{ position: "relative" }}
+                  spacing={1}
+                  item
+                  lg
+                  md
+                  xs
+                  sm
+                >
                   <Grid item className={classes["container-tab-image"]}>
                     {images.map((image, idx) => (
                       <Box
@@ -61,7 +70,7 @@ const ProductTemplate = ({ data, ...props }) => {
             </Grid>
             <Grid item lg={5} md={5} xs={12} sm={12}>
               <Grid container spacing={2}>
-                <Grid item lg md sx xs>
+                <Grid item lg md sm xs>
                   <Typography variant="subtitle1" component="span">
                     <Box fontWeight={500}>
                       {product.title}
@@ -95,7 +104,7 @@ const ProductTemplate = ({ data, ...props }) => {
                   </Typography>
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <Typography variant="body2">
+                  <Typography variant="body2" component="span">
                     <Box fontWeight={300}>
                       {product.desc || "Tidak ada Deskripsi"}
                     </Box>
@@ -113,12 +122,12 @@ const ProductTemplate = ({ data, ...props }) => {
                   ))}
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <Typography variant="caption">
+                  <Typography variant="caption" component="span">
                     <Box color="blue.dark" fontWeight={500} mb={1}>
                       {"Spesifikasi"}
                     </Box>
                   </Typography>
-                  <Typography variant="caption">
+                  <Typography variant="caption" component="span">
                     <ul>
                       {product.spec.map((txt, idx) => (
                         <li key={idx}>{txt}</li>
@@ -127,12 +136,12 @@ const ProductTemplate = ({ data, ...props }) => {
                   </Typography>
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                  <Typography variant="caption">
+                  <Typography variant="caption" component="span">
                     <Box color="blue.dark" fontWeight={500} mb={1}>
                       {"Kondisi"}
                     </Box>
                   </Typography>
-                  <Typography variant="caption">
+                  <Typography variant="caption" component="span">
                     <ul>
                       {product.cond.map((txt, idx) => (
                         <li key={idx}>{txt}</li>
@@ -169,6 +178,12 @@ const useStyles = makeStyles(theme => ({
   },
   "container-tab-image": {
     margin: "auto",
+    [theme.breakpoints.down("md")]: {
+      position: "absolute",
+      top: 0,
+      left: 0,
+      zIndex: 999,
+    },
   },
   container: {
     [theme.breakpoints.up("md")]: {
