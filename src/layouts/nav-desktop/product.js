@@ -39,7 +39,7 @@ function Product(props) {
                   {myNav[type].map(i => {
                     return (
                       <div key={i}>
-                        <Link to={to(`/${type}/${i}`)}>
+                        <Link to={to(`/${type}?query=${i}`)}>
                           <Box pb={1} className={classes["text-child"]}>
                             <Typography component="span">{i}</Typography>
                           </Box>

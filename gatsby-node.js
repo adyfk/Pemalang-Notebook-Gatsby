@@ -152,7 +152,6 @@ exports.sourceNodes = async ({
 }
 
 exports.createPages = async ({ actions, graphql }) => {
-  const myNav = require("./static/my-nav.json")
   const { createPage } = actions
 
   const result = await graphql(`
@@ -185,6 +184,19 @@ exports.createPages = async ({ actions, graphql }) => {
       context: {
         productId: node.id,
         merk: node.merk[0],
+      },
+    })
+  })
+
+  const myNav = require("./static/my-nav.json")
+
+  Object.keys(myNav).forEach(type => {
+    const pathUrl = `/${type}`.toLowerCase()
+    createPage({
+      path: pathUrl,
+      component: path.resolve(`src/templates/product-container.js`),
+      context: {
+        type,
       },
     })
   })
