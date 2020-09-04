@@ -4,7 +4,10 @@ import Fade from "@material-ui/core/Fade"
 import Typography from "@material-ui/core/Typography"
 import Box from "@material-ui/core/Box"
 import Grid from "@material-ui/core/Grid"
-import navData from '../../../my-nav.json'
+import myNav from "../../../static/my-nav.json"
+import { Link } from "gatsby"
+import clsx from "clsx"
+
 function Product(props) {
   const classes = useStyles()
   return (
@@ -15,18 +18,38 @@ function Product(props) {
         {...props}
         className={classes["container"]}
       >
-        <div className={classes['box-container']}>
-          <Grid container>
-              {Object.keys(navData).map((type)=>{
-                return <Grid item lg={2} md={2}>
-                  <Box mb={2}>
-                    <Typography variant='h6'>{type}</Typography>
-                  </Box>
-                    {navData[type].map(i=>{
-                      return <div>{i}</div>
-                    })}
+        <div className={classes["box-container"]}>
+          <Grid container spacing={4}>
+            {Object.keys(myNav).map((type, index, { length }) => {
+              const to = params => params.toLowerCase()
+              const latestBox = length - index === 1
+              return (
+                <Grid
+                  className={clsx(latestBox || classes["border-right-box"])}
+                  key={type}
+                  item
+                  lg={2}
+                  md={2}
+                >
+                  <Link to={to(`/${type}`)}>
+                    <Box mb={2} className={classes["text-parent"]}>
+                      <Typography variant="h6">{type}</Typography>
+                    </Box>
+                  </Link>
+                  {myNav[type].map(i => {
+                    return (
+                      <div key={i}>
+                        <Link to={to(`/${type}/${i}`)}>
+                          <Box pb={1} className={classes["text-child"]}>
+                            <Typography component="span">{i}</Typography>
+                          </Box>
+                        </Link>
+                      </div>
+                    )
+                  })}
                 </Grid>
-              })}
+              )
+            })}
           </Grid>
         </div>
       </div>
@@ -38,7 +61,7 @@ Product.defaultProps = {
   open: false,
 }
 
-const useStyles = makeStyles({
+const useStyles = makeStyles(theme => ({
   container: {
     position: "fixed",
     top: 74,
@@ -49,9 +72,43 @@ const useStyles = makeStyles({
     backgroundColor: "white",
     boxShadow: "0px 1px 15px 0px rgba(0,0,0,0.1)",
   },
-  "box-container":{
-    padding: '20px 70px 50px 70px'
-  }
-})
+  "box-container": {
+    padding: "20px 100px 50px 100px",
+  },
+  "text-parent": {
+    isolate: true,
+    cursor: "pointer",
+    "&:hover": {
+      color: theme.palette.orange.main,
+    },
+  },
+  "text-child": {
+    isolate: true,
+    cursor: "pointer",
+    display: "inline-block",
+    position: "relative",
+    "&:hover": {
+      color: theme.palette.blue.main,
+      "&::after": {
+        transform: "scaleX(1)",
+        backgroundColor: theme.palette.blue.main,
+      },
+    },
+    "&::after": {
+      content: "''",
+      bottom: 2,
+      left: 0,
+      position: "absolute",
+      height: 1,
+      transform: "scaleX(0)",
+      transition: "transform 0.20s ease-in 0s",
+      width: "100%",
+    },
+  },
+  "border-right-box": {
+    borderRight: "1px solid rgba(0,0,0,0.2)",
+    marginRight: 50,
+  },
+}))
 
 export default Product

@@ -44,11 +44,11 @@ function NavDesktop(props) {
                 Product
               </Typography>
             </div>
-            <div className={classes["btn-menu"]}>
+            {/* <div className={classes["btn-menu"]}>
               <Typography className={classes["label"]} component="span">
                 Marchandise
               </Typography>
-            </div>
+            </div> */}
           </div>
           <Link to="/">
             <Img
@@ -106,13 +106,13 @@ function NavDesktop(props) {
           </Grid>
         </Grid>
       </div>
-        <Product
-          open={show === "tab-product"}
-          onMouseOver={handleMouseOver("tab-product")}
-          onFocus={handleMouseOver("tab-product")}
-          onMouseLeave={handleMouseOut}
-          onBlur={handleMouseOut}
-        ></Product>
+      <Product
+        open={show === "tab-product"}
+        onMouseOver={handleMouseOver("tab-product")}
+        onFocus={handleMouseOver("tab-product")}
+        onMouseLeave={handleMouseOut}
+        onBlur={handleMouseOut}
+      ></Product>
     </header>
   )
 }
@@ -191,14 +191,12 @@ const useStyles = makeStyles(theme => ({
         backgroundColor: props => (props.status ? "grey" : "white"),
       },
     },
-    "@global": {
-      span: {
-        margin: "auto",
-        textTransform: "uppercase",
-        fontSize: "0.8rem",
-        fontWeight: 500,
-        letterSpacing: 1.5,
-      },
+    "& span": {
+      margin: "auto",
+      textTransform: "uppercase",
+      fontSize: "0.8rem",
+      fontWeight: 500,
+      letterSpacing: 1.5,
     },
   },
   "btn-icon": {

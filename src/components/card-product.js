@@ -72,6 +72,9 @@ const useStyles = makeStyles(() => ({
   container: {
     color: "inherit !important",
     textDecoration: "none !important",
+    "&:hover": {
+      opacity: 0.9,
+    },
   },
   "chip-top-left": {
     position: "absolute",

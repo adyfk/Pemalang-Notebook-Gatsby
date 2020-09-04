@@ -4,6 +4,9 @@ const _ = require("lodash")
 const fs = require("fs")
 
 const { key, spreadsheetId } = process.env
+const createFile = (fileName, object) =>
+  fs.writeFile("./static/" + fileName, JSON.stringify(object), "utf8", () => "")
+
 exports.sourceNodes = async ({
   actions,
   createNodeId,
@@ -11,7 +14,7 @@ exports.sourceNodes = async ({
 }) => {
   const { createNode } = actions
   try {
-    const fetchFormItems = () =>
+    const fetchProducts = () =>
       axios.get(
         `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Product&majorDimension=ROWS&key=${key}`
       )
@@ -21,21 +24,41 @@ exports.sourceNodes = async ({
         `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Static!A:C&majorDimension=ROWS&key=${key}`
       )
 
-    const [responseData, responseDataStatic] = await Promise.all([
-      fetchFormItems(),
+    const fetchTypeItems = () =>
+      axios.get(
+        `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values:batchGet?ranges=Relasi!A:C&majorDimension=ROWS&key=${key}`
+      )
+
+    const [
+      responseData,
+      responseDataStatic,
+      responseTypeItem,
+    ] = await Promise.all([
+      fetchProducts(),
       fetchStaticItems(),
+      fetchTypeItems(),
     ])
-    const headOfTables = responseData.data.valueRanges[0].values
-    let rows = []
-    for (var i = 1; i < headOfTables.length; i++) {
+    const headOfTablesProduct = responseData.data.valueRanges[0].values
+    const headOfTablesType = responseTypeItem.data.valueRanges[0].values
+    let rowsProduct = [],
+      rowsType = []
+    for (var i = 1; i < headOfTablesProduct.length; i++) {
       var rowData = {}
-      for (var j = 0; j < headOfTables[i].length; j++) {
-        rowData[headOfTables[0][j]] = headOfTables[i][j]
+      for (var j = 0; j < headOfTablesProduct[i].length; j++) {
+        rowData[headOfTablesProduct[0][j]] = headOfTablesProduct[i][j]
       }
-      rows.push(rowData)
+      rowsProduct.push(rowData)
     }
-    const dataMap = {}
-    rows = rows.map(product => {
+    for (var i = 1; i < headOfTablesType.length; i++) {
+      var rowData = {}
+      for (var j = 0; j < headOfTablesType[i].length; j++) {
+        rowData[headOfTablesType[0][j]] = headOfTablesType[i][j]
+      }
+      rowsType.push(rowData)
+    }
+    const navigationMap = {}
+    const groupProductMap = {}
+    rowsProduct = rowsProduct.map(product => {
       const data = {
         ...product,
       }
@@ -58,12 +81,22 @@ exports.sourceNodes = async ({
       const available = data.available === "TRUE"
 
       data["available"] = available
-      
-      dataMap[data.type] = new Set()
+
+      navigationMap[data.type] = new Set()
+      groupProductMap[data.type + data.merk[0]] = new Set()
+      if (data.merk[2]) {
+        groupProductMap[data.type + data.merk[0] + data.merk[1]] = new Set()
+      }
       return data
     })
-    rows.forEach((item, i) => {
-      dataMap[item.type].add(item.merk[0])
+    rowsProduct.forEach((item, i) => {
+      navigationMap[item.type].add(item.merk[0])
+      groupProductMap[item.type + item.merk[0]].add(item.merk[1])
+      if (item.merk[2])
+        groupProductMap[item.type + item.merk[0] + item.merk[1]].add(
+          item.merk[2]
+        )
+
       const itemNode = {
         id: createNodeId(`product_${i}`),
         parent: `__SOURCE__`,
@@ -77,11 +110,13 @@ exports.sourceNodes = async ({
 
       createNode(itemNode)
     })
-    Object.keys(dataMap).forEach(type=>{
-      dataMap[type] = [...dataMap[type]]
+    Object.keys(navigationMap).forEach(type => {
+      navigationMap[type] = [...navigationMap[type]]
+    })
+    Object.keys(groupProductMap).forEach(type => {
+      groupProductMap[type] = [...groupProductMap[type]]
     })
 
-    fs.writeFile("./my-nav.json", JSON.stringify(dataMap), "utf8", () => "")
     responseDataStatic.data.valueRanges[0].values.forEach((i, idx) => {
       const data = { name: i[0], url: i[1], label: i[2] || "" }
       createNode({
@@ -95,22 +130,29 @@ exports.sourceNodes = async ({
         ...data,
       })
     })
+    rowsType.forEach((data, idx) => {
+      createNode({
+        id: createNodeId(`typeProduct_${idx}`),
+        parent: `__SOURCE__`,
+        internal: {
+          type: `typeProduct`,
+          contentDigest: createContentDigest(data),
+        },
+        children: [],
+        ...data,
+      })
+    })
 
-    // fs.writeFile(
-    //   "./group-laptop.json",
-    //   JSON.stringify(groupLaptop),
-    //   "utf8",
-    //   () => ""
-    // )
-    // fs.writeFile("./my-data.json", JSON.stringify(rows), "utf8", () => "")
+    createFile("my-nav.json", navigationMap)
+    createFile("my-group-product.json", groupProductMap)
+    // createFile("my-data.json", rowsProduct)
   } catch (error) {
-    // console.log("error================================", error)
-    // var json = JSON.stringify(error)
-    // fs.writeFile("./myError.json", json, "utf8", () => "")
+    console.log(error)
   }
 }
 
 exports.createPages = async ({ actions, graphql }) => {
+  const myNav = require("./static/my-nav.json")
   const { createPage } = actions
 
   const result = await graphql(`

@@ -19,6 +19,15 @@ module.exports = {
     {
       resolve: "gatsby-plugin-remote-images",
       options: {
+        nodeType: "typeProduct",
+        imagePath: "image",
+        type: "array",
+        name: "optimized_type_product",
+      },
+    },
+    {
+      resolve: "gatsby-plugin-remote-images",
+      options: {
         nodeType: "dataStatic",
         imagePath: "url",
         name: "optimized_data_static",
