@@ -21,7 +21,6 @@ module.exports = {
       options: {
         nodeType: "typeProduct",
         imagePath: "image",
-        type: "array",
         name: "optimized_type_product",
       },
     },
