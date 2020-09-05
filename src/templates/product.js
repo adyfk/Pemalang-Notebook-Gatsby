@@ -111,10 +111,10 @@ const ProductTemplate = ({ data, ...props }) => {
                   </Typography>
                 </Grid>
                 <Grid item lg={12} md={12} sm={12} xs={12}>
-                  {product.merk.map((txt, idx) => (
+                  {product.tag.map((txt, idx) => (
                     <Typography
                       component="span"
-                      className={classes["chip-merk"]}
+                      className={classes["chip-tag"]}
                       key={idx}
                     >
                       {txt.toUpperCase()}
@@ -215,7 +215,7 @@ const useStyles = makeStyles(theme => ({
     color: "red",
     fontWeight: "bold",
   },
-  "chip-merk": {
+  "chip-tag": {
     padding: "1px 10px",
     marginRight: 10,
     backgroundColor: theme.palette.orange.main,
@@ -234,7 +234,7 @@ const useStyles = makeStyles(theme => ({
 }))
 
 export const query = graphql`
-  query getProduct($productId: String, $merk: String) {
+  query getProduct($productId: String, $tag: String) {
     product(id: { eq: $productId }) {
       available
       color
@@ -242,7 +242,7 @@ export const query = graphql`
       desc
       id
       key
-      merk
+      tag
       price
       spec
       status
@@ -259,14 +259,14 @@ export const query = graphql`
     productRelated: allProduct(
       limit: 3
       sort: { order: DESC, fields: key }
-      filter: { merk: { eq: $merk }, id: { ne: $productId } }
+      filter: { tag: { eq: $tag }, id: { ne: $productId } }
     ) {
       nodes {
         key
         color
         available
         price
-        merk
+        tag
         title
         status
         type

@@ -72,8 +72,8 @@ exports.sourceNodes = async ({
       const cond = data.cond.split("\n").map(trim)
       data["cond"] = cond
 
-      const merk = data.merk.split("\n").map(trim)
-      data["merk"] = merk
+      const tag = data.tag.split("\n").map(trim)
+      data["tag"] = tag
 
       const color = data.color.split("\n").map(trim)
       data["color"] = color
@@ -83,19 +83,17 @@ exports.sourceNodes = async ({
       data["available"] = available
 
       navigationMap[data.type] = new Set()
-      groupProductMap[data.type + data.merk[0]] = new Set()
-      if (data.merk[2]) {
-        groupProductMap[data.type + data.merk[0] + data.merk[1]] = new Set()
+      groupProductMap[data.type + data.tag[0]] = new Set()
+      if (data.tag[2]) {
+        groupProductMap[data.type + data.tag[0] + data.tag[1]] = new Set()
       }
       return data
     })
     rowsProduct.forEach((item, i) => {
-      navigationMap[item.type].add(item.merk[0])
-      groupProductMap[item.type + item.merk[0]].add(item.merk[1])
-      if (item.merk[2])
-        groupProductMap[item.type + item.merk[0] + item.merk[1]].add(
-          item.merk[2]
-        )
+      navigationMap[item.type].add(item.tag[0])
+      groupProductMap[item.type + item.tag[0]].add(item.tag[1])
+      if (item.tag[2])
+        groupProductMap[item.type + item.tag[0] + item.tag[1]].add(item.tag[2])
 
       const itemNode = {
         id: createNodeId(`product_${i}`),
@@ -159,7 +157,7 @@ exports.createPages = async ({ actions, graphql }) => {
       allProduct {
         nodes {
           id
-          merk
+          tag
           type
           key
         }
@@ -189,7 +187,7 @@ exports.createPages = async ({ actions, graphql }) => {
   const items = result.data.allProduct.nodes
 
   items.forEach(node => {
-    const pathUrl = `/${node.type}/${node.merk.join("/")}/${
+    const pathUrl = `/${node.type}/${node.tag.join("/")}/${
       node.key
     }`.toLowerCase()
     createPage({
@@ -197,7 +195,7 @@ exports.createPages = async ({ actions, graphql }) => {
       component: path.resolve(`src/templates/product.js`),
       context: {
         productId: node.id,
-        merk: node.merk[0],
+        tag: node.tag[0],
       },
     })
   })

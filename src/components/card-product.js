@@ -12,7 +12,7 @@ const Img = loadable(() => import("gatsby-image"))
 const CardProduct = props => {
   const classes = useStyles(props)
   const image = props.optimized_product[0] || { childImageSharp: {} }
-  const to = `/${props.type}/${props.merk.join("/")}/${
+  const to = `/${props.type}/${props.tag.join("/")}/${
     props.productId
   }`.toLowerCase()
   return (
@@ -34,7 +34,7 @@ const CardProduct = props => {
           </Grid>
           <Grid item lg={9} md={9} xs={9} sm={9} align="right">
             <Typography className={classes["top-label"]}>
-              {props.merk.join(" - ")}
+              {props.tag.join(" - ")}
             </Typography>
           </Grid>
           <Grid item lg={9} md={9} xs={9} sm={9}>

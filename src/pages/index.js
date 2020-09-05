@@ -100,7 +100,7 @@ export const query = graphql`
         color
         available
         price
-        merk
+        tag
         title
         status
         type

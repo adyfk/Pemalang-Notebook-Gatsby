@@ -10,8 +10,8 @@ BreadCrumb
                     <Link color="primary.dark" variant="body2" href="/">
                       {product.type}
                     </Link>
-                    {product.merk.map((text, idx) => {
-                      if (idx + 1 === product.merk.length) {
+                    {product.tag.map((text, idx) => {
+                      if (idx + 1 === product.tag.length) {
                         return (
                           <Typography color="primary.dark" variant="body2">
                             {text}
