@@ -172,6 +172,20 @@ exports.createPages = async ({ actions, graphql }) => {
     return Promise.reject(result.errors)
   }
 
+  const myNav = require("./static/my-nav.json")
+
+  Object.keys(myNav).forEach(type => {
+    const pathUrl = `/${type}`.toLowerCase()
+    createPage({
+      path: pathUrl,
+      exact: true,
+      component: path.resolve(`src/templates/product-container.js`),
+      context: {
+        type,
+      },
+    })
+  })
+
   const items = result.data.allProduct.nodes
 
   items.forEach(node => {
@@ -184,19 +198,6 @@ exports.createPages = async ({ actions, graphql }) => {
       context: {
         productId: node.id,
         merk: node.merk[0],
-      },
-    })
-  })
-
-  const myNav = require("./static/my-nav.json")
-
-  Object.keys(myNav).forEach(type => {
-    const pathUrl = `/${type}`.toLowerCase()
-    createPage({
-      path: pathUrl,
-      component: path.resolve(`src/templates/product-container.js`),
-      context: {
-        type,
       },
     })
   })

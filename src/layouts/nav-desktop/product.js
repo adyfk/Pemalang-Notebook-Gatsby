@@ -16,7 +16,7 @@ function Product(props) {
         tabIndex="0"
         role="button"
         {...props}
-        className={classes["container"]}
+        className={clsx(classes["container"], props.open || classes["hide"])}
       >
         <div className={classes["box-container"]}>
           <Grid container spacing={4}>
@@ -39,7 +39,7 @@ function Product(props) {
                   {myNav[type].map(i => {
                     return (
                       <div key={i}>
-                        <Link to={to(`/${type}?query=${i}`)}>
+                        <Link to={`/${to(type)}?query=${i}`}>
                           <Box pb={1} className={classes["text-child"]}>
                             <Typography component="span">{i}</Typography>
                           </Box>
@@ -108,6 +108,9 @@ const useStyles = makeStyles(theme => ({
   "border-right-box": {
     borderRight: "1px solid rgba(0,0,0,0.2)",
     marginRight: 50,
+  },
+  hide: {
+    top: -1000,
   },
 }))
 
