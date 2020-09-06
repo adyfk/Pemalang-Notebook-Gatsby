@@ -46,6 +46,11 @@ const ProductContainer = props => {
     myColor,
   })
 
+  const init = () => {
+    setFilter(props.location?.search?.replace("?query=", "") || "")
+  }
+  React.useEffect(init, [])
+
   React.useEffect(() => {
     setFilterColor("")
   }, [filter])
