@@ -45,6 +45,11 @@ const ProductContainer = props => {
     myGroupProduct,
     myColor,
   })
+
+  React.useEffect(() => {
+    setFilterColor("")
+  }, [filter])
+
   return (
     <Layout {...props}>
       {typeProduct.optimized_type_product && (
@@ -101,10 +106,9 @@ const ProductContainer = props => {
                   <Box mt={1} pl={1}>
                     {myNav[type].map(text => {
                       return (
-                        <>
+                        <React.Fragment key={text + "filter"}>
                           <Typography
                             onClick={() => setFilter(text)}
-                            key={text}
                             variant="subtitle2"
                             className={clsx(
                               classes["label-product"],
@@ -117,10 +121,9 @@ const ProductContainer = props => {
                             <Box pl={1}>
                               {myGroupProduct[text]?.map(sub => {
                                 return (
-                                  <>
+                                  <React.Fragment key={text + sub}>
                                     <Typography
                                       onClick={() => setFilter(sub)}
-                                      key={text}
                                       variant="subtitle2"
                                       className={clsx(
                                         classes["label-product"],
@@ -137,7 +140,7 @@ const ProductContainer = props => {
                                             return (
                                               <Typography
                                                 onClick={() => setFilter(sub2)}
-                                                key={text}
+                                                key={text + sub + sub2}
                                                 variant="subtitle2"
                                                 className={clsx(
                                                   classes["label-product"],
@@ -154,12 +157,12 @@ const ProductContainer = props => {
                                         )}
                                       </Box>
                                     )}
-                                  </>
+                                  </React.Fragment>
                                 )
                               })}
                             </Box>
                           )}
-                        </>
+                        </React.Fragment>
                       )
                     })}
                   </Box>
@@ -172,9 +175,13 @@ const ProductContainer = props => {
                       <Grid container spacing={1}>
                         {myColor.map(text => {
                           return (
-                            <Grid item key={text + "color"}>
+                            <Grid item key={text + "color-product"}>
                               <Box
-                                onClick={() => setFilterColor(text)}
+                                onClick={() =>
+                                  setFilterColor(
+                                    filterColor === text ? "" : text
+                                  )
+                                }
                                 className={clsx(
                                   classes["color-box"],
                                   filterColor === text &&

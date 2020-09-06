@@ -20,8 +20,8 @@ function ListCardProduct(props) {
             md={4}
             sm={6}
             xs={6}
+            key={product.id + "product"}
             {...props.item}
-            key={product.id}
             item
           >
             <CardProduct productId={product.key} {...product}></CardProduct>
