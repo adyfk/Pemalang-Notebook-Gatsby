@@ -58,6 +58,7 @@ exports.sourceNodes = async ({
     }
     const navigationMap = {}
     const groupProductMap = {}
+    const colorMap = {}
     rowsProduct = rowsProduct.map(product => {
       const data = {
         ...product,
@@ -83,17 +84,28 @@ exports.sourceNodes = async ({
       data["available"] = available
 
       navigationMap[data.type] = new Set()
-      groupProductMap[data.type + data.tag[0]] = new Set()
-      if (data.tag[2]) {
-        groupProductMap[data.type + data.tag[0] + data.tag[1]] = new Set()
+      groupProductMap[data.type] = {
+        ...(groupProductMap[data.type] || {}),
+        [tag[0]]: new Set(),
       }
+      if (tag[2]) {
+        groupProductMap[data.type] = {
+          ...(groupProductMap[data.type] || {}),
+          [tag[0] + tag[1]]: new Set(),
+        }
+      }
+      colorMap[data.type] = new Set()
+
       return data
     })
     rowsProduct.forEach((item, i) => {
+      item.color.forEach(color => {
+        colorMap[item.type].add(color)
+      })
       navigationMap[item.type].add(item.tag[0])
-      groupProductMap[item.type + item.tag[0]].add(item.tag[1])
+      groupProductMap[item.type][item.tag[0]].add(item.tag[1])
       if (item.tag[2])
-        groupProductMap[item.type + item.tag[0] + item.tag[1]].add(item.tag[2])
+        groupProductMap[item.type][item.tag[0] + item.tag[1]].add(item.tag[2])
 
       const itemNode = {
         id: createNodeId(`product_${i}`),
@@ -110,9 +122,12 @@ exports.sourceNodes = async ({
     })
     Object.keys(navigationMap).forEach(type => {
       navigationMap[type] = [...navigationMap[type]]
-    })
-    Object.keys(groupProductMap).forEach(type => {
-      groupProductMap[type] = [...groupProductMap[type]]
+
+      Object.keys(groupProductMap[type]).forEach(tag => {
+        groupProductMap[type][tag] = [...groupProductMap[type][tag]]
+      })
+
+      colorMap[type] = [...colorMap[type]]
     })
 
     responseDataStatic.data.valueRanges[0].values.forEach((i, idx) => {
@@ -141,6 +156,7 @@ exports.sourceNodes = async ({
       })
     })
 
+    createFile("my-color.json", colorMap)
     createFile("my-nav.json", navigationMap)
     createFile("my-group-product.json", groupProductMap)
     // createFile("my-data.json", rowsProduct)
@@ -171,6 +187,8 @@ exports.createPages = async ({ actions, graphql }) => {
   }
 
   const myNav = require("./static/my-nav.json")
+  const myColor = require("./static/my-color.json")
+  const myGroupProduct = require("./static/my-group-product.json")
 
   Object.keys(myNav).forEach(type => {
     const pathUrl = `/${type}`.toLowerCase()
@@ -180,6 +198,9 @@ exports.createPages = async ({ actions, graphql }) => {
       component: path.resolve(`src/templates/product-container.js`),
       context: {
         type,
+        myColor: myColor[type],
+        myGroupProduct: myGroupProduct[type],
+        myNav,
       },
     })
   })

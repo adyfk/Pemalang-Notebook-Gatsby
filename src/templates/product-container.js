@@ -4,15 +4,47 @@ import { graphql, Link } from "gatsby"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
+import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
 import Layout from "../layouts"
 import Img from "gatsby-image"
-import myNav from "../../static/my-nav.json"
+import ListCardProduct from "../components/list-card-product"
+import CircleColor from "../components/circle-color"
+import clsx from "clsx"
+
+const filterProduct = (data, params) => {
+  const values = {}
+  values["nodes"] = data.filter(product => {
+    let bool = true
+    if (params.filterColor)
+      bool = bool && product.color.includes(params.filterColor)
+    if (params.filter)
+      bool =
+        bool &&
+        product.tag.some(i => {
+          return params.filter.includes(i)
+        })
+    return bool
+  })
+  return values
+}
 
 const ProductContainer = props => {
+  const [filter, setFilter] = React.useState("")
+  const [filterColor, setFilterColor] = React.useState("")
   const classes = useStyles()
-  const typeProduct = props.data.typeProduct
+  const {
+    data: { typeProduct, allProduct },
+    pageContext: { myNav, myGroupProduct, type, myColor },
+  } = props
+
+  const productMap = filterProduct(allProduct.nodes, {
+    filter,
+    filterColor,
+    myGroupProduct,
+    myColor,
+  })
   return (
     <Layout {...props}>
       {typeProduct.optimized_type_product && (
@@ -32,16 +64,19 @@ const ProductContainer = props => {
       <section className={classes["body-content"]} id="body-content">
         <Container>
           <Grid container spacing={3}>
-            <Grid item lg={3}>
+            <Grid item lg={3} md={3} xs={12} sm={12}>
               <Box pb={5}>
-                <Typography variant="caption">Category Product</Typography>
-                <Box mt={1}>
+                <Box color="white.dark" mb={1}>
+                  <Typography variant="subtitle2">Category</Typography>
+                </Box>
+                <Divider />
+                <Box mt={1} pl={1}>
                   {Object.keys(myNav).map(text => {
                     return (
                       <Typography
                         key={text + "label"}
                         component={Link}
-                        variant="body1"
+                        variant="subtitle2"
                         activeClassName={classes["label-product-active"]}
                         to={`/${text}`.toLowerCase()}
                         className={classes["label-product"]}
@@ -53,27 +88,117 @@ const ProductContainer = props => {
                 </Box>
               </Box>
               <Box>
-                <Typography variant="caption">Filter by</Typography>
-                <Box mt={1}>
-                  {Object.keys(myNav).map(text => {
-                    return (
-                      <Typography
-                        key={text}
-                        component={Link}
-                        variant="body1"
-                        activeClassName={classes["label-product-active"]}
-                        to={`/${text}`.toLowerCase()}
-                        className={classes["label-product"]}
-                      >
-                        {text}
-                      </Typography>
-                    )
-                  })}
+                <Box mb={1} color="white.dark">
+                  <Typography variant="subtitle2">Filter By</Typography>
+                </Box>
+                <Divider />
+                {/* ======================== */}
+                <Box pt={3} pl={1}>
+                  <Box mb={1} color="primary.light">
+                    <Typography variant="body2">{type}</Typography>
+                  </Box>
+
+                  <Box mt={1} pl={1}>
+                    {myNav[type].map(text => {
+                      return (
+                        <>
+                          <Typography
+                            onClick={() => setFilter(text)}
+                            key={text}
+                            variant="subtitle2"
+                            className={clsx(
+                              classes["label-product"],
+                              filter === text && classes["label-product-active"]
+                            )}
+                          >
+                            {text}
+                          </Typography>
+                          {!!myGroupProduct[text] && myGroupProduct[text]?.[0] && (
+                            <Box pl={1}>
+                              {myGroupProduct[text]?.map(sub => {
+                                return (
+                                  <>
+                                    <Typography
+                                      onClick={() => setFilter(sub)}
+                                      key={text}
+                                      variant="subtitle2"
+                                      className={clsx(
+                                        classes["label-product"],
+                                        filter === sub &&
+                                          classes["label-product-active"]
+                                      )}
+                                    >
+                                      - {sub}
+                                    </Typography>
+                                    {!!myGroupProduct[text + sub] && (
+                                      <Box pl={1}>
+                                        {myGroupProduct[text + sub]?.map(
+                                          sub2 => {
+                                            return (
+                                              <Typography
+                                                onClick={() => setFilter(sub2)}
+                                                key={text}
+                                                variant="subtitle2"
+                                                className={clsx(
+                                                  classes["label-product"],
+                                                  filter === sub2 &&
+                                                    classes[
+                                                      "label-product-active"
+                                                    ]
+                                                )}
+                                              >
+                                                - {sub2}
+                                              </Typography>
+                                            )
+                                          }
+                                        )}
+                                      </Box>
+                                    )}
+                                  </>
+                                )
+                              })}
+                            </Box>
+                          )}
+                        </>
+                      )
+                    })}
+                  </Box>
+                  <Divider />
+                  <Box mt={2}>
+                    <Box mb={1} color="primary.light">
+                      <Typography variant="body2">Color</Typography>
+                    </Box>
+                    <Box py={1} pl={1}>
+                      <Grid container spacing={1}>
+                        {myColor.map(text => {
+                          return (
+                            <Grid item key={text + "color"}>
+                              <Box
+                                onClick={() => setFilterColor(text)}
+                                className={clsx(
+                                  classes["color-box"],
+                                  filterColor === text &&
+                                    classes["color-box-active"]
+                                )}
+                              >
+                                <CircleColor
+                                  color={text}
+                                  width={30}
+                                  height={30}
+                                ></CircleColor>
+                              </Box>
+                            </Grid>
+                          )
+                        })}
+                      </Grid>
+                    </Box>
+                    <Divider />
+                  </Box>
                 </Box>
               </Box>
             </Grid>
-            <Grid item lg={9}>
-              Y
+            <Grid item lg={9} md={9} xs={12} sm={12} container>
+              <ListCardProduct disabledContainer={true} data={productMap} />
             </Grid>
           </Grid>
         </Container>
@@ -83,6 +208,18 @@ const ProductContainer = props => {
 }
 
 const useStyles = makeStyles(theme => ({
+  "color-box": {
+    cursor: "pointer",
+    padding: 1,
+    border: "1px solid white",
+    borderRadius: "50%",
+    "&:hover": {
+      border: "1px solid" + theme.palette.orange.light,
+    },
+  },
+  "color-box-active": {
+    border: "1px solid " + theme.palette.orange.main,
+  },
   "jumbo-tron": {
     position: "relative",
   },
@@ -110,7 +247,7 @@ const useStyles = makeStyles(theme => ({
     cursor: "pointer",
     color: ["black", "!important"],
     "&:hover": {
-      extend: "label-product-active",
+      color: [theme.palette.orange.light, "!important"],
     },
   },
   "label-product-active": {
@@ -127,6 +264,27 @@ export const query = graphql`
         childImageSharp {
           fluid(quality: 10) {
             ...GatsbyImageSharpFluid_tracedSVG
+          }
+        }
+      }
+    }
+    allProduct(filter: { type: { eq: $type } }) {
+      nodes {
+        key
+        color
+        available
+        price
+        tag
+        title
+        status
+        type
+        id
+        spec
+        optimized_product {
+          childImageSharp {
+            fluid(quality: 40) {
+              ...GatsbyImageSharpFluid_tracedSVG
+            }
           }
         }
       }

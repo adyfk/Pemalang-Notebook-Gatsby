@@ -1,1 +1,15 @@
-{"LaptopAsus":["Zenbook","UX333"],"LaptopAsusZenbook":["UX333"],"KomponenHarddisk":["Toshiba"],"KomponenLenovo":["Yoga"],"KomponenLenovoYoga":["700"],"AccesoriesStiker":[null]}
+{
+    "Laptop": {
+        "Asus": ["Zenbook", "VIvobook"],
+        "AsusZenbook": ["UX333"],
+        "Lenovo": ["Yoga"],
+        "LenovoYoga": ["700"],
+        "AsusVIvobook": ["UX333"]
+    },
+    "Komponen": {
+        "Harddisk": ["Toshiba"]
+    },
+    "Accesories": {
+        "Stiker": [null]
+    }
+}
