@@ -1,17 +1,13 @@
 import React from "react"
-// import clsx from "clsx"
-import { graphql, Link } from "gatsby"
+import { graphql } from "gatsby"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import Container from "@material-ui/core/Container"
 import Typography from "@material-ui/core/Typography"
-import Divider from "@material-ui/core/Divider"
 import Grid from "@material-ui/core/Grid"
-import Box from "@material-ui/core/Box"
 import Layout from "../layouts"
 import Img from "gatsby-image"
 import ListCardProduct from "../components/list-card-product"
-import CircleColor from "../components/circle-color"
-import clsx from "clsx"
+import LeftSideProductContainer from "./components/left-side-product-container"
 
 const filterProduct = (data, params) => {
   const values = {}
@@ -19,12 +15,16 @@ const filterProduct = (data, params) => {
     let bool = true
     if (params.filterColor)
       bool = bool && product.color.includes(params.filterColor)
-    if (params.filter)
+    if (params.filter || !bool) {
       bool =
         bool &&
         product.tag.some(i => {
           return params.filter.includes(i)
         })
+    }
+    if (params.filterScreenSize || !bool) {
+      bool = bool && true
+    }
     return bool
   })
   return values
@@ -33,15 +33,17 @@ const filterProduct = (data, params) => {
 const ProductContainer = props => {
   const [filter, setFilter] = React.useState("")
   const [filterColor, setFilterColor] = React.useState("")
+  const [filterScreenSize, setFilterScreenSize] = React.useState("")
   const classes = useStyles()
   const {
     data: { typeProduct, allProduct },
-    pageContext: { myNav, myGroupProduct, type, myColor },
+    pageContext: { myGroupProduct, myColor },
   } = props
 
   const productMap = filterProduct(allProduct.nodes, {
     filter,
     filterColor,
+    filterScreenSize,
     myGroupProduct,
     myColor,
   })
@@ -53,6 +55,7 @@ const ProductContainer = props => {
 
   React.useEffect(() => {
     setFilterColor("")
+    setFilterScreenSize("")
   }, [filter])
 
   return (
@@ -75,139 +78,15 @@ const ProductContainer = props => {
         <Container>
           <Grid container spacing={3}>
             <Grid item lg={3} md={3} xs={12} sm={12}>
-              <Box pb={5}>
-                <Box color="white.dark" mb={1}>
-                  <Typography variant="subtitle2">Category</Typography>
-                </Box>
-                <Divider />
-                <Box mt={1} pl={1}>
-                  {Object.keys(myNav).map(text => {
-                    return (
-                      <Typography
-                        key={text + "label"}
-                        component={Link}
-                        variant="subtitle2"
-                        activeClassName={classes["label-product-active"]}
-                        to={`/${text}`.toLowerCase()}
-                        className={classes["label-product"]}
-                      >
-                        {text}
-                      </Typography>
-                    )
-                  })}
-                </Box>
-              </Box>
-              <Box>
-                <Box mb={1} color="white.dark">
-                  <Typography variant="subtitle2">Filter By</Typography>
-                </Box>
-                <Divider />
-                {/* ======================== */}
-                <Box pt={3} pl={1}>
-                  <Box mb={1} color="primary.light">
-                    <Typography variant="body2">{type}</Typography>
-                  </Box>
-
-                  <Box mt={1} pl={1}>
-                    {myNav[type].map(text => {
-                      return (
-                        <React.Fragment key={text + "filter"}>
-                          <Typography
-                            onClick={() => setFilter(text)}
-                            variant="subtitle2"
-                            className={clsx(
-                              classes["label-product"],
-                              filter === text && classes["label-product-active"]
-                            )}
-                          >
-                            {text}
-                          </Typography>
-                          {!!myGroupProduct[text] && myGroupProduct[text]?.[0] && (
-                            <Box pl={1}>
-                              {myGroupProduct[text]?.map(sub => {
-                                return (
-                                  <React.Fragment key={text + sub}>
-                                    <Typography
-                                      onClick={() => setFilter(sub)}
-                                      variant="subtitle2"
-                                      className={clsx(
-                                        classes["label-product"],
-                                        filter === sub &&
-                                          classes["label-product-active"]
-                                      )}
-                                    >
-                                      - {sub}
-                                    </Typography>
-                                    {!!myGroupProduct[text + sub] && (
-                                      <Box pl={1}>
-                                        {myGroupProduct[text + sub]?.map(
-                                          sub2 => {
-                                            return (
-                                              <Typography
-                                                onClick={() => setFilter(sub2)}
-                                                key={text + sub + sub2}
-                                                variant="subtitle2"
-                                                className={clsx(
-                                                  classes["label-product"],
-                                                  filter === sub2 &&
-                                                    classes[
-                                                      "label-product-active"
-                                                    ]
-                                                )}
-                                              >
-                                                - {sub2}
-                                              </Typography>
-                                            )
-                                          }
-                                        )}
-                                      </Box>
-                                    )}
-                                  </React.Fragment>
-                                )
-                              })}
-                            </Box>
-                          )}
-                        </React.Fragment>
-                      )
-                    })}
-                  </Box>
-                  <Divider />
-                  <Box mt={2}>
-                    <Box mb={1} color="primary.light">
-                      <Typography variant="body2">Color</Typography>
-                    </Box>
-                    <Box py={1} pl={1}>
-                      <Grid container spacing={1}>
-                        {myColor.map(text => {
-                          return (
-                            <Grid item key={text + "color-product"}>
-                              <Box
-                                onClick={() =>
-                                  setFilterColor(
-                                    filterColor === text ? "" : text
-                                  )
-                                }
-                                className={clsx(
-                                  classes["color-box"],
-                                  filterColor === text &&
-                                    classes["color-box-active"]
-                                )}
-                              >
-                                <CircleColor
-                                  color={text}
-                                  width={30}
-                                  height={30}
-                                ></CircleColor>
-                              </Box>
-                            </Grid>
-                          )
-                        })}
-                      </Grid>
-                    </Box>
-                    <Divider />
-                  </Box>
-                </Box>
-              </Box>
+              <LeftSideProductContainer
+                filter={filter}
+                filterColor={filterColor}
+                filterScreenSize={filterScreenSize}
+                setFilter={setFilter}
+                setFilterColor={setFilterColor}
+                setFilterScreenSize={setFilterScreenSize}
+                {...props}
+              />
             </Grid>
             <Grid item lg={9} md={9} xs={12} sm={12} container>
               <ListCardProduct disabledContainer={true} data={productMap} />
@@ -251,19 +130,6 @@ const useStyles = makeStyles(theme => ({
       paddingRight: 30,
     },
     borderBottom: "1px solid " + theme.palette.orange.light,
-  },
-  "label-product": {
-    display: "block",
-    textDecoration: "none",
-    margin: "8px 0px",
-    cursor: "pointer",
-    color: ["black", "!important"],
-    "&:hover": {
-      color: [theme.palette.orange.light, "!important"],
-    },
-  },
-  "label-product-active": {
-    color: [theme.palette.orange.main, "!important"],
   },
 }))
 

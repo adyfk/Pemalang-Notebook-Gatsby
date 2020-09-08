@@ -5,9 +5,7 @@ import Grid from "@material-ui/core/Grid"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import { Link } from "gatsby"
 import CircleColor from "./circle-color"
-import loadable from "@loadable/component"
-
-const Img = loadable(() => import("gatsby-image"))
+import Img from "gatsby-image"
 
 const CardProduct = props => {
   const classes = useStyles(props)

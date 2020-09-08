@@ -66,7 +66,7 @@ function NavDesktop(props) {
                 Printing
               </Typography>
             </div>
-            <Link to="/contact">
+            <Link to="#contact-us">
               <div className={classes["btn-menu"]}>
                 <Typography className={classes["label"]} component="span">
                   Contact

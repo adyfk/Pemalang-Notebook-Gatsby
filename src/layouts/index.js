@@ -8,6 +8,7 @@ import makeStyles from "@material-ui/core/styles/makeStyles"
 import useScroll from "@hoooks/use-scroll"
 import loadable from "@loadable/component"
 import Hidden from "@material-ui/core/Hidden"
+import "./styles.css"
 
 const Footer = loadable(() => import(`./footer`))
 

@@ -57,7 +57,7 @@ function Footer(props) {
   const { imgLogoWithLabel } = props
 
   return (
-    <footer className={classes["container"]}>
+    <footer className={classes["container"]} id="contact-us">
       <Container>
         <Grid container spacing={6} justify="center" alignItems="center">
           <Grid item lg={6} md={6} sm={12} xs={12}>
