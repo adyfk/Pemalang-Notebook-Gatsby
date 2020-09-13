@@ -39,18 +39,18 @@ const query = graphql`
       url
       label
     }
-    staticMap {
-      childFile {
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid_tracedSVG
-          }
-        }
-      }
-    }
   }
-  
 `
+
+// staticMap {
+//   childFile {
+//     childImageSharp {
+//       fluid {
+//         ...GatsbyImageSharpFluid_tracedSVG
+//       }
+//     }
+//   }
+// }
 
 function Footer(props) {
   const {
@@ -59,7 +59,7 @@ function Footer(props) {
     urlShopee,
     urlWhatsapp,
     urlTokopedia,
-    staticMap
+    // staticMap
   } = useStaticQuery(query)
   const classes = useStyles()
   const { imgLogoWithLabel } = props
@@ -94,7 +94,8 @@ function Footer(props) {
           </Grid>
           <Grid item lg={5} md={5} sm={12} xs={12}>
             <div className={classes["google-maps"]}>
-              <Img fluid={staticMap.childFile.childImageSharp.fluid} />
+              {/* <Img fluid={staticMap.childFile.childImageSharp.fluid} /> */}
+              Maps
             </div>
           </Grid>
           <Grid item lg={1} md={1}></Grid>
@@ -118,6 +119,7 @@ const useStyles = makeStyles(() => ({
   },
   "google-maps": {
     height: "300px",
+    background: 'rgba(0,0,0,0.2)',
     width: "100%",
   },
 }))
