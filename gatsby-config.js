@@ -13,7 +13,8 @@ module.exports = {
       resolve: `@ccalamos/gatsby-source-googlemaps-static`,
       options: {
         key: `AIzaSyAH9kmLWToQwTc1WBGhzsex2U8VIvUCgtk`,
-        center: `-6.884397, 109.38074`,
+        center: `-6.884397,109.38074`,
+        zoom: 13
       },
     },
     {
