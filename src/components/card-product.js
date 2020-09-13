@@ -94,7 +94,7 @@ const useStyles = makeStyles(() => ({
     textTransform: "uppercase",
   },
   "real-price": {
-    fontSize: 10,
+    fontSize: 12,
     color: "red",
     fontWeight: "bold",
   },

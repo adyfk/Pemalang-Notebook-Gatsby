@@ -20,8 +20,15 @@ const ProductTemplate = ({ data, ...props }) => {
   const classes = useStyles(props)
   const product = data.product
   const images = product.optimized_product
+  const metaDescription = product.desc + product.spec.join(", ")
+  const metaKeywords = product.tag.join(", ") + product.keyword
   return (
-    <Layout {...props}>
+    <Layout
+      title={product.title}
+      description={metaDescription}
+      keywords={metaKeywords}
+      {...props}
+    >
       <article className={classes["container"]}>
         <Container>
           <Grid container spacing={6}>
@@ -71,8 +78,8 @@ const ProductTemplate = ({ data, ...props }) => {
             <Grid item lg={5} md={5} xs={12} sm={12}>
               <Grid container spacing={2}>
                 <Grid item lg md sm xs>
-                  <Typography variant="subtitle1" component="span">
-                    <Box fontWeight={500}>
+                  <Box fontWeight={500}>
+                    <Typography variant="subtitle1" component="h2">
                       {product.title}
                       <Tooltip
                         title={`Product ${
@@ -91,8 +98,8 @@ const ProductTemplate = ({ data, ...props }) => {
                           )}
                         </Box>
                       </Tooltip>
-                    </Box>
-                  </Typography>
+                    </Typography>
+                  </Box>
                 </Grid>
                 <Grid item>
                   <Typography
@@ -248,6 +255,7 @@ export const query = graphql`
       status
       title
       type
+      keyword
       optimized_product {
         childImageSharp {
           fluid(quality: 100) {

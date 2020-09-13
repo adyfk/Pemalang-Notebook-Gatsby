@@ -7,6 +7,18 @@ module.exports = {
   plugins: [
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
+    "gatsby-plugin-react-helmet",
+    // {
+    //   resolve: `gatsby-plugin-manifest`,
+    //   options: {
+    //     name: `Pemalang Notebook`,
+    //     short_name: `Pemalang Notebok`,
+    //     start_url: `/`,
+    //     background_color: `#f7f0eb`,
+    //     theme_color: `#a2466c`,
+    //     display: `standalone`,
+    //   },
+    // },
     {
       resolve: "gatsby-plugin-remote-images",
       options: {

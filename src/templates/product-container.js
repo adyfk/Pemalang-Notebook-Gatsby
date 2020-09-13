@@ -37,7 +37,7 @@ const ProductContainer = props => {
   const classes = useStyles()
   const {
     data: { typeProduct, allProduct },
-    pageContext: { myGroupProduct, myColor },
+    pageContext: { myGroupProduct, myColor, type },
   } = props
 
   const productMap = filterProduct(allProduct.nodes, {
@@ -59,7 +59,7 @@ const ProductContainer = props => {
   }, [filter])
 
   return (
-    <Layout {...props}>
+    <Layout title={`Category ${type}`} {...props}>
       {typeProduct.optimized_type_product && (
         <article>
           <section className={classes["jumbo-tron"]} id="jumbo-tron">

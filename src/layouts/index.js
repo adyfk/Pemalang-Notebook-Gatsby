@@ -9,6 +9,7 @@ import useScroll from "@hoooks/use-scroll"
 import loadable from "@loadable/component"
 import Hidden from "@material-ui/core/Hidden"
 import "./styles.css"
+import Seo from "../components/seo"
 
 const Footer = loadable(() => import(`./footer`))
 
@@ -39,8 +40,14 @@ function Layout(props) {
   `)
 
   const status = props.location.pathname === "/" ? y > 200 : true
+
   return (
     <div className={clsx(props.top || classes["space-top"])}>
+      <Seo
+        title={props.title}
+        description={props.description}
+        keywords={props.keywords}
+      ></Seo>
       <CssBaseline />
       <Hidden xsDown>
         <NavDesktop status={status} imgLogo={imgLogo} />

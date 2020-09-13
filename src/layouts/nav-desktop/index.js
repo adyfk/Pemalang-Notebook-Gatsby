@@ -61,11 +61,11 @@ function NavDesktop(props) {
             />
           </Link>
           <div className={classes["right-menu"]}>
-            <div className={classes["btn-menu"]}>
+            {/* <div className={classes["btn-menu"]}>
               <Typography className={classes["label"]} component="span">
                 Printing
               </Typography>
-            </div>
+            </div> */}
             <Link to="#contact-us">
               <div className={classes["btn-menu"]}>
                 <Typography className={classes["label"]} component="span">
