@@ -11,9 +11,6 @@ import Shopee from "./../../static/icon/shopee.svg"
 import Whatsapp from "./../../static/icon/whatsapp.svg"
 import At from "./../../static/icon/at.svg"
 import { graphql, useStaticQuery } from "gatsby"
-import loadable from "@loadable/component"
-
-const Maps = loadable(() => import(`../components/google-maps`))
 
 const query = graphql`
   query getFooterContact {
@@ -85,9 +82,7 @@ function Footer(props) {
             </Grid>
           </Grid>
           <Grid item lg={5} md={5} sm={12} xs={12}>
-            <div className={classes["google-maps"]}>
-              <Maps></Maps>
-            </div>
+            <div className={classes["google-maps"]}></div>
           </Grid>
           <Grid item lg={1} md={1}></Grid>
           <Grid item lg md xs sm>
