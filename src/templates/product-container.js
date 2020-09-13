@@ -13,17 +13,27 @@ const filterProduct = (data, params) => {
   const values = {}
   values["nodes"] = data.filter(product => {
     let bool = true
-    if (params.filterColor)
-      bool = bool && product.color.includes(params.filterColor)
-    if (params.filter || !bool) {
-      bool =
-        bool &&
-        product.tag.some(i => {
-          return params.filter.includes(i)
-        })
+    if (params.filterColor) bool = product.color.includes(params.filterColor)
+    if (params.filter && bool) {
+      bool = product.tag.some(i => {
+        return params.filter.includes(i)
+      })
     }
-    if (params.filterScreenSize || !bool) {
-      bool = bool && true
+    if (params.filterScreenSize && bool) {
+      switch (params.filter) {
+        case "1": {
+          bool = product.inch <= 13
+          break
+        }
+        case "2": {
+          bool = product.inch <= 16
+          break
+        }
+        default: {
+          bool = product.inch > 16
+          break
+        }
+      }
     }
     return bool
   })
@@ -84,7 +94,9 @@ const ProductContainer = props => {
                 filterScreenSize={filterScreenSize}
                 setFilter={setFilter}
                 setFilterColor={setFilterColor}
-                setFilterScreenSize={setFilterScreenSize}
+                setFilterScreenSize={value =>
+                  setFilterScreenSize(value === filterScreenSize ? "" : value)
+                }
                 {...props}
               />
             </Grid>
@@ -99,18 +111,6 @@ const ProductContainer = props => {
 }
 
 const useStyles = makeStyles(theme => ({
-  "color-box": {
-    cursor: "pointer",
-    padding: 1,
-    border: "1px solid white",
-    borderRadius: "50%",
-    "&:hover": {
-      border: "1px solid" + theme.palette.orange.light,
-    },
-  },
-  "color-box-active": {
-    border: "1px solid " + theme.palette.orange.main,
-  },
   "jumbo-tron": {
     position: "relative",
   },

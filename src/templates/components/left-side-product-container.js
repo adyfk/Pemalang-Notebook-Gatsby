@@ -8,9 +8,23 @@ import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
 import CircleColor from "../../components/circle-color"
 
+const mapSize = [
+  { value: "1", title: `11" ~ 13` },
+  { value: "2", title: `14" ~ 16` },
+  { value: "3", title: `17" & up` },
+]
+
 function LeftSideProductContainer(props) {
   const classes = useStyles()
-  const { pageContext, filter, filterColor, setFilter, setFilterColor } = props
+  const {
+    pageContext,
+    filter,
+    filterColor,
+    filterScreenSize,
+    setFilter,
+    setFilterColor,
+    setFilterScreenSize,
+  } = props
   const { myNav, myGroupProduct, type, myColor } = pageContext
 
   return (
@@ -112,15 +126,22 @@ function LeftSideProductContainer(props) {
             </Box>
             <Box pt={1} pb={2} pl={1}>
               <Grid container direction="column" spacing={1}>
-                <Grid item>
-                  <Typography variant="subtitle2">11" ~ 13"</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="subtitle2">14" ~ 16"</Typography>
-                </Grid>
-                <Grid item>
-                  <Typography variant="subtitle2">17" & up</Typography>
-                </Grid>
+                {mapSize.map(size => {
+                  return (
+                    <Grid item key={size.value}>
+                      <Typography
+                        className={clsx(
+                          filterScreenSize === size.value &&
+                            classes["label-product-active"]
+                        )}
+                        onClick={() => setFilterScreenSize(size.value)}
+                        variant="subtitle2"
+                      >
+                        {size.title}
+                      </Typography>
+                    </Grid>
+                  )
+                })}
               </Grid>
             </Box>
             <Divider />
@@ -146,8 +167,8 @@ function LeftSideProductContainer(props) {
                     >
                       <CircleColor
                         color={text}
-                        width={30}
-                        height={30}
+                        width={25}
+                        height={25}
                       ></CircleColor>
                     </Box>
                   </Grid>
@@ -163,6 +184,17 @@ function LeftSideProductContainer(props) {
 }
 
 const useStyles = makeStyles(theme => ({
+  "color-box": {
+    border: "1px solid white",
+    borderRadius: "50%",
+    padding: 1,
+    cursor: "pointer",
+  },
+  "color-box-active": {
+    border: "1px solid " + theme.palette.orange.main,
+    padding: 1,
+    borderRadius: "50%",
+  },
   "label-product": {
     display: "block",
     textDecoration: "none",
