@@ -30,6 +30,8 @@ function Product(props) {
                   item
                   lg={2}
                   md={2}
+                  sm={12}
+                  xs={12}
                 >
                   <Link to={to(`/${type}`)}>
                     <Box mb={2} className={classes["text-parent"]}>
@@ -65,15 +67,22 @@ const useStyles = makeStyles(theme => ({
   container: {
     position: "fixed",
     top: 74,
-    padding: 20,
     left: 0,
     zIndex: 9999,
     width: "100vw",
     backgroundColor: "white",
     boxShadow: "0px 1px 15px 0px rgba(0,0,0,0.1)",
+    [theme.breakpoints.up("md")]: {
+      padding: 20,
+    },
   },
   "box-container": {
-    padding: "20px 100px 50px 100px",
+    [theme.breakpoints.up("md")]: {
+      padding: "20px 100px 50px 100px",
+    },
+    [theme.breakpoints.down("md")]: {
+      padding: 20,
+    },
   },
   "text-parent": {
     isolate: true,
@@ -106,8 +115,10 @@ const useStyles = makeStyles(theme => ({
     },
   },
   "border-right-box": {
-    borderRight: "1px solid rgba(0,0,0,0.2)",
-    marginRight: 50,
+    [theme.breakpoints.up("md")]: {
+      borderRight: "1px solid rgba(0,0,0,0.2)",
+      marginRight: 50,
+    },
   },
   hide: {
     top: -1000,

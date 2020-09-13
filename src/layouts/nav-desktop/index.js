@@ -132,7 +132,7 @@ const useStyles = makeStyles(theme => ({
     textDecoration: ["none", "!important"],
   }),
   nav: {
-    [theme.breakpoints.down("lg")]: {
+    [theme.breakpoints.up("md")]: {
       paddingLeft: 22,
       paddingRight: 22,
     },

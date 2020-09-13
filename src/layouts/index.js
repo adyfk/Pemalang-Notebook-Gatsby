@@ -7,9 +7,9 @@ import withTheme from "@material-ui/core/styles/withTheme"
 import makeStyles from "@material-ui/core/styles/makeStyles"
 import useScroll from "@hoooks/use-scroll"
 import loadable from "@loadable/component"
-import Hidden from "@material-ui/core/Hidden"
 import "./styles.css"
 import Seo from "../components/seo"
+// import Hidden from "@material-ui/core/Hidden"
 
 const Footer = loadable(() => import(`./footer`))
 
@@ -47,11 +47,11 @@ function Layout(props) {
         title={props.title}
         description={props.description}
         keywords={props.keywords}
-      ></Seo>
+      />
       <CssBaseline />
-      <Hidden xsDown>
-        <NavDesktop status={status} imgLogo={imgLogo} />
-      </Hidden>
+      {/* <Hidden xsDown> */}
+      <NavDesktop status={status} imgLogo={imgLogo} />
+      {/* </Hidden> */}
       {props.children}
       <Footer imgLogoWithLabel={imgLogoWithLabel} />
     </div>
