@@ -6,6 +6,21 @@ function Seo(props) {
 
   return (
     <Helmet>
+      <script type="application/ld+json">
+        {`
+        {
+          "@context": "https://schema.org",
+          "@type": "Seller",
+          "url": "https://www.pemalangnotebook.com",
+          "name": "${title}",
+          "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+6282136950725",
+            "contactType": "Customer Support"
+          }
+        }
+      `}
+      </script>
       <title>{title}</title>
       <meta
         name="description"
@@ -30,7 +45,6 @@ function Seo(props) {
         sizes="16x16"
         href="/public/favicon-16x16.png"
       />
-      <link rel="manifest" href="/public/site.webmanifest" />
       <link
         rel="mask-icon"
         href="/public/safari-pinned-tab.svg"

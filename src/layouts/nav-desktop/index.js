@@ -19,6 +19,9 @@ function NavDesktop(props) {
   const [search, setSearch] = React.useState("")
   const classes = useStyles({ status: props.status })
   const { imgLogo } = props
+  React.useEffect(() => () => {
+    handleMouseOver("")()
+  })
   const handleMouseOver = message => () => {
     clearTimeout(timer)
     if (show !== message) setShow(message)

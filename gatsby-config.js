@@ -7,18 +7,32 @@ module.exports = {
   plugins: [
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
-    "gatsby-plugin-react-helmet",
-    // {
-    //   resolve: `gatsby-plugin-manifest`,
-    //   options: {
-    //     name: `Pemalang Notebook`,
-    //     short_name: `Pemalang Notebok`,
-    //     start_url: `/`,
-    //     background_color: `#f7f0eb`,
-    //     theme_color: `#a2466c`,
-    //     display: `standalone`,
-    //   },
-    // },
+    `gatsby-plugin-react-helmet`,
+    `gatsby-plugin-offline`,
+    {
+      resolve: `gatsby-plugin-manifest`,
+      options: {
+        name: `Pemalang Notebook`,
+        short_name: `Pemalang Notebok`,
+        description: `Jual beli laptop bekas aman dan terpercaya`,
+        icons: [
+          {
+            src: "public/android-chrome-192x192.png",
+            sizes: "192x192",
+            type: "image/png",
+          },
+          {
+            src: "public/android-chrome-512x512.png",
+            sizes: "512x512",
+            type: "image/png",
+          },
+        ],
+        theme_color: "#ffffff",
+        background_color: "#ffffff",
+        display: "standalone",
+        crossOrigin: `use-credentials`,
+      },
+    },
     {
       resolve: "gatsby-plugin-remote-images",
       options: {
