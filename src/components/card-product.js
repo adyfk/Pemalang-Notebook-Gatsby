@@ -56,9 +56,12 @@ const CardProduct = props => {
               </Box>
             ))}
           </Grid>
-          <Grid item>
-            <Typography className={classes["real-price"]} component="span">
+          <Grid item container justify="space-between">
+            <Typography className={classes["real-price"]} component="div">
               Rp {props.price.toLocaleString()}
+            </Typography>
+            <Typography component="div" variant="body1">
+              {props.inch}"
             </Typography>
           </Grid>
         </Grid>
