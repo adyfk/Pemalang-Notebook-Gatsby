@@ -8,11 +8,11 @@ import Grid from "@material-ui/core/Grid"
 import Box from "@material-ui/core/Box"
 import CircleColor from "../../components/circle-color"
 
-const mapSize = [
-  { value: "1", title: `11" ~ 13` },
-  { value: "2", title: `14" ~ 16` },
-  { value: "3", title: `17" & up` },
-]
+// const mapSize = [
+//   { value: "1", title: `11" ~ 13` },
+//   { value: "2", title: `14" ~ 16` },
+//   { value: "3", title: `17" & up` },
+// ]
 
 function LeftSideProductContainer(props) {
   const classes = useStyles()
@@ -20,10 +20,10 @@ function LeftSideProductContainer(props) {
     pageContext,
     filter,
     filterColor,
-    filterScreenSize,
+    // filterScreenSize,
     setFilter,
     setFilterColor,
-    setFilterScreenSize,
+    // setFilterScreenSize,
   } = props
   const { myNav, myGroupProduct, type, myColor } = pageContext
 
@@ -119,7 +119,7 @@ function LeftSideProductContainer(props) {
           })}
         </Box>
         <Divider />
-        {type === "Laptop" && (
+        {/* {type === "Laptop" && (
           <Box mt={2}>
             <Box mb={1} color="primary.light">
               <Typography variant="body2">Screen Size</Typography>
@@ -146,7 +146,7 @@ function LeftSideProductContainer(props) {
             </Box>
             <Divider />
           </Box>
-        )}
+        )} */}
         <Box mt={2}>
           <Box mb={1} color="primary.light">
             <Typography variant="body2">Color</Typography>

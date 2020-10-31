@@ -60,9 +60,6 @@ const CardProduct = props => {
             <Typography className={classes["real-price"]} component="div">
               Rp {props.price.toLocaleString()}
             </Typography>
-            <Typography component="div" variant="body1">
-              {props.inch}"
-            </Typography>
           </Grid>
         </Grid>
       </Grid>
