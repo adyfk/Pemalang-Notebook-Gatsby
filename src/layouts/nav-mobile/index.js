@@ -50,6 +50,9 @@ const useStyles = makeStyles(theme => ({
     paddingLeft: theme.spacing(4),
     color: ["black", "!important"],
   },
+  "disable-link-color": {
+    color: ["black", "!important"],
+  },
 }))
 
 function NavMobile(props) {
@@ -116,7 +119,10 @@ function NavMobile(props) {
               })}
             </Collapse>
             <ListItem component={Link} to="#contact-us" button>
-              <ListItemText primary="Contact" />
+              <ListItemText
+                className={classes["disable-link-color"]}
+                primary="Contact"
+              />
             </ListItem>
           </List>
         </div>
